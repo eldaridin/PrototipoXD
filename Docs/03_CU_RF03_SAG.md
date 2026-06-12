@@ -23,7 +23,7 @@ flowchart LR
     %% Actores
     Turista[Turista / Pasajero]
     OficialSAG[Oficial SAG]
-    SAGExt[SAG Externo (API)]
+    SAGExt[SAG Externo API]
 
     %% Frontera del Sistema
     subgraph Sistema ["Sistema de Declaración Jurada SAG"]
