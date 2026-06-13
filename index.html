@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aduanas System - Modernización Fronteriza</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">🛂 Aduanas System</div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#modulos" class="nav-link">Módulos</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+            <button class="login-btn" onclick="toggleLoginModal()">Ingreso</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Modernización de la Frontera Los Libertadores</h1>
+            <p>Automatización y eficiencia en trámites migratorios e interoperabilidad con Argentina</p>
+            <button class="cta-btn" onclick="scrollToModules()">Explorar Módulos</button>
+        </div>
+    </section>
+
+    <!-- Módulos Section -->
+    <section id="modulos" class="modules">
+        <h2>Módulos del Sistema</h2>
+        <div class="modules-grid">
+            <!-- RF01: Menores -->
+            <div class="module-card" onclick="showModal('RF01')">
+                <div class="module-icon">👶</div>
+                <h3>RF01: Menores de Edad</h3>
+                <p>Gestión de documentación y autorizaciones notariales digitales</p>
+                <span class="tag">Crítico</span>
+            </div>
+
+            <!-- RF02: Vehículos -->
+            <div class="module-card" onclick="showModal('RF02')">
+                <div class="module-icon">🚗</div>
+                <h3>RF02: Admisión de Vehículos</h3>
+                <p>Automatización de entrada/salida y validación de plazos (180/90 días)</p>
+                <span class="tag">Alto</span>
+            </div>
+
+            <!-- RF03: SAG -->
+            <div class="module-card" onclick="showModal('RF03')">
+                <div class="module-icon">🥬</div>
+                <h3>RF03: Declaración SAG</h3>
+                <p>Formulario electrónico para productos de riesgo sanitario</p>
+                <span class="tag">Alto</span>
+            </div>
+
+            <!-- RF04: Interoperabilidad -->
+            <div class="module-card" onclick="showModal('RF04')">
+                <div class="module-icon">🌐</div>
+                <h3>RF04: Interoperabilidad</h3>
+                <p>Validación automática con Aduana Argentina</p>
+                <span class="tag">Crítico</span>
+            </div>
+
+            <!-- RF05: Control PDI/SAG -->
+            <div class="module-card" onclick="showModal('RF05')">
+                <div class="module-icon">📋</div>
+                <h3>RF05: Control PDI/SAG</h3>
+                <p>Registro del flujo de revisión y cierre de procesos</p>
+                <span class="tag">Alto</span>
+            </div>
+
+            <!-- RF06: Reportes -->
+            <div class="module-card" onclick="showModal('RF06')">
+                <div class="module-icon">📊</div>
+                <h3>RF06: Reportes Estadísticos</h3>
+                <p>Generación de informes en PDF y Excel</p>
+                <span class="tag">Medio</span>
+            </div>
+
+            <!-- RF07: Usuarios -->
+            <div class="module-card" onclick="showModal('RF07')">
+                <div class="module-icon">👤</div>
+                <h3>RF07: Gestión de Usuarios</h3>
+                <p>Control de acceso mediante roles y perfiles</p>
+                <span class="tag">Alto</span>
+            </div>
+
+            <!-- RF08: Notificaciones -->
+            <div class="module-card" onclick="showModal('RF08')">
+                <div class="module-icon">📧</div>
+                <h3>RF08: Notificaciones</h3>
+                <p>Alertas automáticas de trámites pendientes</p>
+                <span class="tag">Medio</span>
+            </div>
+
+            <!-- RF09: Patentes y Multas -->
+            <div class="module-card" onclick="showModal('RF09')">
+                <div class="module-icon">⚠️</div>
+                <h3>RF09: Validación de Patentes</h3>
+                <p>Consulta de encargos, robo y prohibiciones legales</p>
+                <span class="tag">Alto</span>
+            </div>
+
+            <!-- RF10: Chatbot FAQ -->
+            <div class="module-card" onclick="showModal('RF10')">
+                <div class="module-icon">💬</div>
+                <h3>RF10: Chatbot FAQ</h3>
+                <p>Módulo de ayuda y preguntas frecuentes interactivo</p>
+                <span class="tag">Bajo</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <h2>Preguntas Frecuentes</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(0)">
+                    ¿Cuál es el propósito del sistema?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer" id="faq-0">
+                    <p>El sistema Aduanas System busca reducir los tiempos de tramitación presencial (actualmente hasta 20 horas) mediante formularios web preventivos y automatización de procesos migratorios, garantizando interoperabilidad con organismos chilenos y la Aduana Argentina.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(1)">
+                    ¿Qué disponibilidad garantiza el sistema?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer" id="faq-1">
+                    <p>El sistema garantiza un uptime del 99.9% (24/7), lo que equivale a un máximo de 43 minutos de inactividad al mes. Esto es crítico para operaciones fronterizas sin interrupciones.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(2)">
+                    ¿Cómo se protegen los datos sensibles de menores?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer" id="faq-2">
+                    <p>Los datos de menores están protegidos mediante cifrado de extremo a extremo, autenticación de doble factor para funcionarios y registros de auditoría completos (logs) para garantizar confidencialidad e integridad.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(3)">
+                    ¿Cuál es el rendimiento esperado?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer" id="faq-3">
+                    <p>El sistema procesa validaciones en ≤ 2 segundos bajo condiciones normales y soporta un flujo simultáneo de al menos 5.000 usuarios sin degradación del servicio.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(4)">
+                    ¿Qué sucede si hay pérdida de conectividad con Argentina?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer" id="faq-4">
+                    <p>El sistema cuenta con un modo offline temporal que se activa en menos de 5 segundos ante caídas de conexión, permitiendo continuar con operaciones no dependientes de validación internacional.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(5)">
+                    ¿Es compatible con dispositivos móviles?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer" id="faq-5">
+                    <p>Sí, el sistema es completamente responsive y funciona en navegadores modernos (Chrome 120+, Firefox 120+) en desktop, tablet y móvil, facilitando el acceso para personas con poca experiencia digital.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <h2>Contacto</h2>
+        <div class="contact-info">
+            <p><strong>Institución:</strong> DuocUC - Escuela de Informática y Telecomunicaciones</p>
+            <p><strong>Asignatura:</strong> Ingeniería de Software</p>
+            <p><strong>Equipo:</strong></p>
+            <ul>
+                <li>Dario Rojas - Scrum Master</li>
+                <li>Nicolas Herrera - Development Team</li>
+            </ul>
+            <p><strong>Email:</strong> <a href="mailto:info@aduanassystem.cl">info@aduanassystem.cl</a></p>
+        </div>
+    </section>
+
+    <!-- Modal de Módulos -->
+    <div id="moduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content modal-login">
+            <span class="close" onclick="toggleLoginModal()">&times;</span>
+            <h2>Ingreso al Sistema</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="rut">RUT:</label>
+                    <input type="text" id="rut" placeholder="12.345.678-K" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" placeholder="Ingrese contraseña" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Rol:</label>
+                    <select id="role" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="turista">Turista/Pasajero</option>
+                        <option value="aduanas">Funcionario Aduanas</option>
+                        <option value="pdi">Oficial PDI</option>
+                        <option value="sag">Oficial SAG</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Ingresar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Aduanas System. Modernización de Fronteras. | Proyecto Ingeniería de Software - DuocUC</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
