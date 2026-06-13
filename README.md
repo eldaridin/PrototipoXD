@@ -1,4 +1,4 @@
-# PrototipoXD — Aduanas System v1.0
+# Prototipo — Aduanas System v1.0
 
 ## 🎯 Descripción General
 
