@@ -12,15 +12,9 @@
 <nav class="navbar" id="mainNav">
     <div class="navbar-container">
         <div class="logo" onclick="navigateTo('landing')">🛂 Aduanas System</div>
-        <ul class="nav-menu" id="publicNav">
-            <li><a href="#" class="nav-link" onclick="navigateTo('landing');return false">Inicio</a></li>
-            <li><a href="#" class="nav-link" onclick="navigateTo('landing');scrollAfter('modulos');return false">Módulos</a></li>
-            <li><a href="#" class="nav-link" onclick="navigateTo('landing');scrollAfter('faq');return false">FAQ</a></li>
-            <li><a href="#" class="nav-link" onclick="navigateTo('landing');scrollAfter('contacto');return false">Contacto</a></li>
-        </ul>
+        <ul class="nav-menu hidden" id="publicNav"></ul>
         <ul class="nav-menu hidden" id="authNav">
             <li><a href="#" class="nav-link" onclick="navigateTo('dashboard');return false">Dashboard</a></li>
-            <li><a href="#" class="nav-link" onclick="navigateTo('landing');return false">Módulos</a></li>
         </ul>
         <div class="nav-user hidden" id="userInfoBar">
             <span class="user-badge" id="userBadgeText">Usuario</span>
@@ -43,138 +37,14 @@
 
 <!-- ─── LANDING ─── -->
 <div id="view-landing" class="view active">
-
-    <section class="hero">
+    <section class="hero" style="min-height:calc(100vh - 70px)">
         <div class="hero-content">
-            <span class="hero-badge">Sistema en Producción · Uptime 99.9% · 24/7</span>
-            <h1>Modernización de la Frontera<br>Los Libertadores</h1>
-            <p>Automatización de trámites migratorios e interoperabilidad con Argentina.<br>Reducción de esperas de 20 horas a minutos.</p>
-            <div class="hero-stats">
-                <div class="hero-stat"><span class="stat-num">126K+</span><span class="stat-lbl">Pasajeros / temporada</span></div>
-                <div class="hero-stat"><span class="stat-num">≤ 2s</span><span class="stat-lbl">Tiempo de validación</span></div>
-                <div class="hero-stat"><span class="stat-num">10</span><span class="stat-lbl">Módulos integrados</span></div>
-            </div>
-            <button class="cta-btn" onclick="document.getElementById('modulos').scrollIntoView({behavior:'smooth'})">Explorar Módulos</button>
+            <div style="font-size:4rem;margin-bottom:1rem">🛂</div>
+            <h1>Aduanas System</h1>
+            <p>Modernización de la Frontera Los Libertadores<br>Complejo Internacional — Región de Valparaíso</p>
+            <button class="cta-btn" onclick="toggleLoginModal()">Ingresar al Sistema</button>
         </div>
     </section>
-
-    <section id="modulos" class="modules">
-        <h2>Módulos del Sistema</h2>
-        <p class="section-sub">Haga clic en un módulo para acceder al formulario correspondiente</p>
-        <div class="modules-grid">
-            <div class="module-card border-critico" onclick="navigateTo('rf01')">
-                <div class="module-icon">👶</div>
-                <h3>RF01: Menores de Edad</h3>
-                <p>Gestión de documentación y autorizaciones notariales digitales para menores</p>
-                <div class="card-footer"><span class="tag critico">Crítico</span><span class="actors">PDI · Turista</span></div>
-            </div>
-            <div class="module-card border-alto" onclick="navigateTo('rf02')">
-                <div class="module-icon">🚗</div>
-                <h3>RF02: Admisión de Vehículos</h3>
-                <p>Formulario Acuerdo Chileno-Argentino y validación de plazos 180/90 días</p>
-                <div class="card-footer"><span class="tag alto">Alto</span><span class="actors">Funcionario Aduanas</span></div>
-            </div>
-            <div class="module-card border-alto" onclick="navigateTo('rf03')">
-                <div class="module-icon">🥬</div>
-                <h3>RF03: Declaración SAG</h3>
-                <p>Formulario electrónico de declaración de productos de riesgo sanitario</p>
-                <div class="card-footer"><span class="tag alto">Alto</span><span class="actors">Turista · SAG</span></div>
-            </div>
-            <div class="module-card border-critico" onclick="navigateTo('rf04')">
-                <div class="module-icon">🌐</div>
-                <h3>RF04: Interoperabilidad</h3>
-                <p>Validación automática con Aduana Argentina y modo offline</p>
-                <div class="card-footer"><span class="tag critico">Crítico</span><span class="actors">Sistema · Aduanas</span></div>
-            </div>
-            <div class="module-card border-alto" onclick="navigateTo('rf05')">
-                <div class="module-icon">📋</div>
-                <h3>RF05: Control PDI/SAG</h3>
-                <p>Registro y cierre del flujo de revisión de pasajeros en frontera</p>
-                <div class="card-footer"><span class="tag alto">Alto</span><span class="actors">PDI · SAG · Aduanas</span></div>
-            </div>
-            <div class="module-card border-medio" onclick="navigateTo('rf06')">
-                <div class="module-icon">📊</div>
-                <h3>RF06: Reportes Estadísticos</h3>
-                <p>Generación de informes exportables en PDF y Excel con filtros</p>
-                <div class="card-footer"><span class="tag medio">Medio</span><span class="actors">Administrador</span></div>
-            </div>
-            <div class="module-card border-alto" onclick="navigateTo('rf07')">
-                <div class="module-icon">👤</div>
-                <h3>RF07: Gestión de Usuarios</h3>
-                <p>Control de acceso RBAC con doble factor de autenticación</p>
-                <div class="card-footer"><span class="tag alto">Alto</span><span class="actors">Administrador</span></div>
-            </div>
-            <div class="module-card border-medio" onclick="navigateTo('rf08')">
-                <div class="module-icon">📧</div>
-                <h3>RF08: Notificaciones</h3>
-                <p>Alertas automáticas de trámites pendientes y vencimientos</p>
-                <div class="card-footer"><span class="tag medio">Medio</span><span class="actors">Sistema · Turista</span></div>
-            </div>
-            <div class="module-card border-alto" onclick="navigateTo('rf09')">
-                <div class="module-icon">🔍</div>
-                <h3>RF09: Validación de Patentes</h3>
-                <p>Consulta de encargos, robos y prohibiciones legales de vehículos</p>
-                <div class="card-footer"><span class="tag alto">Alto</span><span class="actors">Funcionario Aduanas</span></div>
-            </div>
-            <div class="module-card border-bajo" onclick="navigateTo('rf10')">
-                <div class="module-icon">💬</div>
-                <h3>RF10: Chatbot FAQ</h3>
-                <p>Asistente virtual con IA para consultas de pasajeros y funcionarios</p>
-                <div class="card-footer"><span class="tag bajo">Bajo</span><span class="actors">Turista · Funcionario</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq">
-        <h2>Preguntas Frecuentes</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(0)">¿Cuál es el propósito del sistema?<span class="faq-icon">+</span></button>
-                <div class="faq-answer" id="faq-0"><p>El sistema Aduanas System busca reducir los tiempos de tramitación presencial (actualmente hasta 20 horas) mediante formularios web preventivos y automatización de procesos migratorios, garantizando interoperabilidad con organismos chilenos (PDI, SAG) y la Aduana Argentina.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(1)">¿Qué disponibilidad garantiza el sistema?<span class="faq-icon">+</span></button>
-                <div class="faq-answer" id="faq-1"><p>El sistema garantiza un uptime del 99.9% (24/7), equivalente a un máximo de 43 minutos de inactividad al mes. Esto es crítico para operaciones fronterizas sin interrupciones.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(2)">¿Cómo se protegen los datos sensibles de menores?<span class="faq-icon">+</span></button>
-                <div class="faq-answer" id="faq-2"><p>Los datos de menores están protegidos mediante cifrado de extremo a extremo, autenticación de doble factor (2FA) para funcionarios y registros de auditoría completos para garantizar confidencialidad e integridad.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(3)">¿Cuál es el rendimiento esperado?<span class="faq-icon">+</span></button>
-                <div class="faq-answer" id="faq-3"><p>El sistema procesa validaciones en ≤ 2 segundos bajo condiciones normales y soporta flujo simultáneo de al menos 5.000 usuarios sin degradación del servicio.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(4)">¿Qué sucede si hay pérdida de conectividad con Argentina?<span class="faq-icon">+</span></button>
-                <div class="faq-answer" id="faq-4"><p>El sistema activa el modo offline en menos de 5 segundos, permitiendo continuar con operaciones no dependientes de validación internacional, con sincronización automática al restaurar la conexión.</p></div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(5)">¿Es compatible con dispositivos móviles?<span class="faq-icon">+</span></button>
-                <div class="faq-answer" id="faq-5"><p>Sí, el sistema es completamente responsive y funciona en Chrome 120+, Firefox 120+ en desktop, tablet y móvil, facilitando el acceso para personas con poca experiencia digital.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="contact">
-        <h2>Contacto e Información del Proyecto</h2>
-        <div class="contact-grid">
-            <div class="contact-card">
-                <h3>Institución</h3>
-                <p>DuocUC — Escuela de Informática y Telecomunicaciones</p>
-                <p>Asignatura: Ingeniería de Software</p>
-            </div>
-            <div class="contact-card">
-                <h3>Equipo de Desarrollo</h3>
-                <ul><li>Dario Rojas — Scrum Master</li><li>Nicolas Herrera — Development Team</li></ul>
-            </div>
-            <div class="contact-card">
-                <h3>Contacto</h3>
-                <p>Email: <a href="mailto:info@aduanassystem.cl">info@aduanassystem.cl</a></p>
-                <p>Paso Los Libertadores, Región de Valparaíso</p>
-            </div>
-        </div>
-    </section>
-
 </div><!-- /view-landing -->
 
 <!-- ─── DASHBOARD ─── -->
@@ -202,7 +72,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">👶</div>
-            <div><h2>RF01: Registro de Menores de Edad</h2><p>Gestión de documentación y autorizaciones notariales digitales · CU-RF01</p></div>
+            <div><h2>Registro de Menores de Edad</h2><p>Gestión de documentación y autorizaciones notariales digitales</p></div>
             <span class="tag critico">Crítico</span>
         </div>
         <div class="step-indicator">
@@ -289,7 +159,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">🚗</div>
-            <div><h2>RF02: Admisión y Salida de Vehículos</h2><p>Formulario Acuerdo Chileno-Argentino · Validación plazos 180/90 días · CU-RF02</p></div>
+            <div><h2>Admisión y Salida de Vehículos</h2><p>Formulario Acuerdo Chileno-Argentino · Validación plazos 180/90 días</p></div>
             <span class="tag alto">Alto</span>
         </div>
         <div class="two-col">
@@ -326,7 +196,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">🥬</div>
-            <div><h2>RF03: Declaración Jurada Digital SAG</h2><p>Formulario electrónico de productos de riesgo sanitario · CU-RF03</p></div>
+            <div><h2>Declaración Jurada Digital SAG</h2><p>Formulario electrónico de productos de riesgo sanitario</p></div>
             <span class="tag alto">Alto</span>
         </div>
         <div class="info-box warning-box" style="margin-bottom:1.5rem">
@@ -379,7 +249,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">🌐</div>
-            <div><h2>RF04: Panel de Interoperabilidad Internacional</h2><p>Estado de conexión y validación cruzada con Aduana Argentina · CU-RF04</p></div>
+            <div><h2>Panel de Interoperabilidad Internacional</h2><p>Estado de conexión y validación cruzada con Aduana Argentina</p></div>
             <span class="tag critico">Crítico</span>
         </div>
         <div class="status-grid">
@@ -419,7 +289,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">📋</div>
-            <div><h2>RF05: Control de Revisión de Pasajeros</h2><p>Registro y cierre del flujo PDI/SAG — Complejo Los Libertadores · CU-RF05</p></div>
+            <div><h2>Control de Revisión de Pasajeros</h2><p>Registro y cierre del flujo PDI/SAG — Complejo Los Libertadores</p></div>
             <span class="tag alto">Alto</span>
         </div>
         <div class="form-panel-wide">
@@ -487,7 +357,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">📊</div>
-            <div><h2>RF06: Generación de Informes Estadísticos</h2><p>Reportes exportables en PDF y Excel · CU-RF06</p></div>
+            <div><h2>Generación de Informes Estadísticos</h2><p>Reportes exportables en PDF y Excel</p></div>
             <span class="tag medio">Medio</span>
         </div>
         <div class="filter-bar">
@@ -536,11 +406,11 @@
             <table class="data-table">
                 <thead><tr><th>Folio</th><th>Tipo</th><th>Hora</th><th>Estado</th><th>Módulo</th><th>Funcionario</th></tr></thead>
                 <tbody>
-                    <tr><td>TRM-2026-001</td><td>Pasajero</td><td>14:30</td><td><span class="badge badge-success">Aprobado</span></td><td>RF01</td><td>J. Pérez</td></tr>
-                    <tr><td>TRM-2026-002</td><td>Vehículo</td><td>14:28</td><td><span class="badge badge-success">Aprobado</span></td><td>RF02</td><td>M. García</td></tr>
-                    <tr><td>TRM-2026-003</td><td>SAG</td><td>14:25</td><td><span class="badge badge-warning">Revisión</span></td><td>RF03</td><td>Sistema</td></tr>
-                    <tr><td>TRM-2026-004</td><td>Menor</td><td>14:22</td><td><span class="badge badge-success">Aprobado</span></td><td>RF01</td><td>A. López</td></tr>
-                    <tr><td>TRM-2026-005</td><td>Vehículo</td><td>14:15</td><td><span class="badge badge-danger">Bloqueado</span></td><td>RF09</td><td>J. Pérez</td></tr>
+                    <tr><td>TRM-2026-001</td><td>Pasajero</td><td>14:30</td><td><span class="badge badge-success">Aprobado</span></td><td>Menores</td><td>J. Pérez</td></tr>
+                    <tr><td>TRM-2026-002</td><td>Vehículo</td><td>14:28</td><td><span class="badge badge-success">Aprobado</span></td><td>Vehículos</td><td>M. García</td></tr>
+                    <tr><td>TRM-2026-003</td><td>SAG</td><td>14:25</td><td><span class="badge badge-warning">Revisión</span></td><td>SAG</td><td>Sistema</td></tr>
+                    <tr><td>TRM-2026-004</td><td>Menor</td><td>14:22</td><td><span class="badge badge-success">Aprobado</span></td><td>Menores</td><td>A. López</td></tr>
+                    <tr><td>TRM-2026-005</td><td>Vehículo</td><td>14:15</td><td><span class="badge badge-danger">Bloqueado</span></td><td>Patentes</td><td>J. Pérez</td></tr>
                 </tbody>
             </table>
         </div>
@@ -552,7 +422,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">👤</div>
-            <div><h2>RF07: Gestión de Cuentas de Usuario</h2><p>Control de acceso RBAC con 2FA · CU-RF07</p></div>
+            <div><h2>Gestión de Cuentas de Usuario</h2><p>Control de acceso RBAC con 2FA</p></div>
             <span class="tag alto">Alto</span>
         </div>
         <div class="action-bar">
@@ -595,7 +465,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">📧</div>
-            <div><h2>RF08: Notificaciones Automáticas</h2><p>Alertas de trámites pendientes y vencimientos · CU-RF08</p></div>
+            <div><h2>Notificaciones Automáticas</h2><p>Alertas de trámites pendientes y vencimientos</p></div>
             <span class="tag medio">Medio</span>
         </div>
         <div class="notifications-layout">
@@ -613,7 +483,7 @@
                 </div>
                 <div class="notification-item notif-info">
                     <div class="notif-icon">ℹ️</div>
-                    <div class="notif-body"><strong>Trámite de menor aprobado</strong><p>Folio RF01-2026-0892 procesado exitosamente</p><span class="notif-time">Hace 1 hora</span></div>
+                    <div class="notif-body"><strong>Trámite de menor aprobado</strong><p>Folio MEN-2026-0892 procesado exitosamente</p><span class="notif-time">Hace 1 hora</span></div>
                     <button class="notif-dismiss" onclick="dismissNotif(this)">×</button>
                 </div>
                 <div class="notification-item notif-success">
@@ -648,7 +518,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">🔍</div>
-            <div><h2>RF09: Validación de Patentes y Multas</h2><p>Consulta de encargos por robo y prohibiciones legales · CU-RF09</p></div>
+            <div><h2>Validación de Patentes y Multas</h2><p>Consulta de encargos por robo y prohibiciones legales</p></div>
             <span class="tag alto">Alto</span>
         </div>
         <div class="search-panel-centered">
@@ -683,7 +553,7 @@
     <div class="view-container">
         <div class="view-header">
             <div class="view-icon">💬</div>
-            <div><h2>RF10: Asistente Virtual — Chatbot FAQ</h2><p>Módulo de ayuda con procesamiento de lenguaje natural · CU-RF10</p></div>
+            <div><h2>Asistente Virtual — Chatbot FAQ</h2><p>Módulo de ayuda con procesamiento de lenguaje natural</p></div>
             <span class="tag bajo">Bajo</span>
         </div>
         <div class="chatbot-layout">
@@ -764,7 +634,6 @@
         <div class="footer-info"><p>Modernización de Fronteras — Complejo Los Libertadores</p><p>DuocUC · Ingeniería de Software · 2026</p></div>
         <div class="footer-links">
             <a href="#" onclick="navigateTo('landing');return false">Inicio</a>
-            <a href="#" onclick="navigateTo('rf10');return false">Chatbot</a>
         </div>
     </div>
 </footer>

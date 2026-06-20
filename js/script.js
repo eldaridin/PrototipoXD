@@ -24,16 +24,16 @@ const roleModules = {
 };
 
 const moduleInfo = {
-    rf01: {icon:'👶', title:'RF01: Menores', desc:'Registro de menores de edad'},
-    rf02: {icon:'🚗', title:'RF02: Vehículos', desc:'Admisión y salida de vehículos'},
-    rf03: {icon:'🥬', title:'RF03: SAG', desc:'Declaración jurada SAG'},
-    rf04: {icon:'🌐', title:'RF04: Interoperabilidad', desc:'Validación con Argentina'},
-    rf05: {icon:'📋', title:'RF05: Control PDI/SAG', desc:'Revisión de pasajeros'},
-    rf06: {icon:'📊', title:'RF06: Reportes', desc:'Informes estadísticos'},
-    rf07: {icon:'👤', title:'RF07: Usuarios', desc:'Gestión de cuentas RBAC'},
-    rf08: {icon:'📧', title:'RF08: Notificaciones', desc:'Alertas automáticas'},
-    rf09: {icon:'🔍', title:'RF09: Patentes', desc:'Validación de patentes y multas'},
-    rf10: {icon:'💬', title:'RF10: Chatbot', desc:'Asistente virtual FAQ'}
+    rf01: {icon:'👶', title:'Menores', desc:'Registro de menores de edad'},
+    rf02: {icon:'🚗', title:'Vehículos', desc:'Admisión y salida de vehículos'},
+    rf03: {icon:'🥬', title:'SAG', desc:'Declaración jurada SAG'},
+    rf04: {icon:'🌐', title:'Interoperabilidad', desc:'Validación con Argentina'},
+    rf05: {icon:'📋', title:'Control PDI/SAG', desc:'Revisión de pasajeros'},
+    rf06: {icon:'📊', title:'Reportes', desc:'Informes estadísticos'},
+    rf07: {icon:'👤', title:'Usuarios', desc:'Gestión de cuentas RBAC'},
+    rf08: {icon:'📧', title:'Notificaciones', desc:'Alertas automáticas'},
+    rf09: {icon:'🔍', title:'Patentes', desc:'Validación de patentes y multas'},
+    rf10: {icon:'💬', title:'Chatbot', desc:'Asistente virtual FAQ'}
 };
 
 // ══════════════════════════════════════════
@@ -181,7 +181,7 @@ function renderDashboard() {
         aduanas: [
             {icon:'🚗', text:'Vehículo ABC-1234 validado — APROBADO', time:'14:28'},
             {icon:'⚠️', text:'Alerta: patente ROB-9988 encargada por robo', time:'14:15'},
-            {icon:'👶', text:'Menor RF01-0892 autorizado para cruzar', time:'13:55'},
+            {icon:'👶', text:'Menor MEN-0892 autorizado para cruzar', time:'13:55'},
             {icon:'🌐', text:'Sincronización con Argentina completada', time:'13:30'}
         ],
         pdi: [
@@ -190,7 +190,7 @@ function renderDashboard() {
             {icon:'✅', text:'Flujo de revisión cerrado — barrera habilitada', time:'13:50'}
         ],
         sag: [
-            {icon:'✅', text:'Declaración SAG folio 2026-245 aprobada', time:'14:25'},
+            {icon:'✅', text:'Declaración SAG folio SAG-2026-245 aprobada', time:'14:25'},
             {icon:'⚠️', text:'Carnes sin certificado sanitario — revisión', time:'14:00'},
             {icon:'✅', text:'Mascota con vacuna verificada — OK', time:'13:40'}
         ],
@@ -272,7 +272,7 @@ function rf01Submit() {
                 <button class="btn-secondary" style="margin-top:1.5rem" onclick="rf01GoStep(1)">Nuevo Registro</button>
             </div>`;
     } else {
-        const folio = 'RF01-2026-' + Math.floor(Math.random()*9000+1000);
+        const folio = 'MEN-2026-' + Math.floor(Math.random()*9000+1000);
         resultEl.innerHTML = `
             <div class="success-box" style="text-align:center;padding:2rem">
                 <div class="success-icon">✅</div>
@@ -638,19 +638,19 @@ function addHistory(pat, res) {
 // ══════════════════════════════════════════
 const chatResponses = [
     {keys:['menor','menores','niño','hijo','hija','autorización','notarial'],
-     res:'Para viajar con un menor de edad necesita: (1) Cédula de identidad del menor, (2) Autorización notarial del progenitor ausente si viaja con uno solo de sus padres, (3) Autorización notarial de ambos si viaja con un tercero. Puede iniciar el trámite en el módulo <strong>RF01: Menores de Edad</strong>.'},
+     res:'Para viajar con un menor de edad necesita: (1) Cédula de identidad del menor, (2) Autorización notarial del progenitor ausente si viaja con uno solo de sus padres, (3) Autorización notarial de ambos si viaja con un tercero. Puede iniciar el trámite en el módulo <strong>Menores de Edad</strong>.'},
     {keys:['vehículo','vehiculo','auto','carro','camioneta','patente','admisión'],
-     res:'Para ingresar un vehículo a Chile desde Argentina (o viceversa) necesita el Formulario de Acuerdo Chileno-Argentino. El plazo permitido es de <strong>180 días</strong> para entrada y <strong>90 días</strong> para vehículos argentinos en Chile. Acceda al módulo <strong>RF02: Admisión de Vehículos</strong>.'},
+     res:'Para ingresar un vehículo a Chile desde Argentina (o viceversa) necesita el Formulario de Acuerdo Chileno-Argentino. El plazo permitido es de <strong>180 días</strong> para entrada y <strong>90 días</strong> para vehículos argentinos en Chile. Acceda al módulo <strong>Admisión de Vehículos</strong>.'},
     {keys:['sag','declaración','alimento','comida','fruta','carne','vegetal'],
-     res:'Debe declarar cualquier producto de origen animal o vegetal que transporte. Productos de alto riesgo (carnes, lácteos, mascotas) requieren certificado sanitario oficial. La no declaración puede resultar en multas de hasta <strong>50 UTM</strong>. Use el módulo <strong>RF03: Declaración SAG</strong>.'},
+     res:'Debe declarar cualquier producto de origen animal o vegetal que transporte. Productos de alto riesgo (carnes, lácteos, mascotas) requieren certificado sanitario oficial. La no declaración puede resultar en multas de hasta <strong>50 UTM</strong>. Use el módulo <strong>Declaración SAG</strong>.'},
     {keys:['documento','documentos','requiero','necesito','qué traer','requisito'],
      res:'Los documentos básicos para cruzar Los Libertadores son: (1) Cédula de identidad vigente o pasaporte, (2) Para vehículos: licencia de conducir, seguro obligatorio y formulario SAG, (3) Para menores: autorización notarial según caso. ¿Necesita más detalles?'},
     {keys:['plazo','días','tiempo','cuánto','duración'],
-     res:'Los plazos de estadía son: Turistas en Chile: <strong>90 días prorrogables</strong>. Vehículos extranjeros en Chile: <strong>90 días</strong>. Vehículos chilenos en Argentina con acuerdo: <strong>180 días</strong>. Para consultar el plazo de un vehículo específico use el módulo RF02.'},
+     res:'Los plazos de estadía son: Turistas en Chile: <strong>90 días prorrogables</strong>. Vehículos extranjeros en Chile: <strong>90 días</strong>. Vehículos chilenos en Argentina con acuerdo: <strong>180 días</strong>. Para consultar el plazo de un vehículo específico use el módulo <strong>Admisión de Vehículos</strong>.'},
     {keys:['horario','hora','abierto','cierra','disponible'],
      res:'El Complejo Los Libertadores opera <strong>24 horas los 7 días de la semana</strong>. Las horas de mayor flujo son entre las 10:00 y las 14:00. En temporada alta (enero-febrero) puede haber esperas de hasta 4 horas.'},
     {keys:['multa','multas','deuda','prohibición','cobro'],
-     res:'Puede consultar multas pendientes de su vehículo en el módulo <strong>RF09: Validación de Patentes</strong>. El funcionario de aduanas también realizará esta consulta al momento de procesar su vehículo.'},
+     res:'Puede consultar multas pendientes de su vehículo en el módulo <strong>Validación de Patentes</strong>. El funcionario de aduanas también realizará esta consulta al momento de procesar su vehículo.'},
     {keys:['operador','humano','persona','agente','funcionario','hablar'],
      res:'Entiendo que prefiere hablar con un funcionario. Un operador humano estará disponible en breve. Número de ticket de atención: <strong>TKT-' + Math.floor(Math.random()*9000+1000) + '</strong>. Tiempo estimado de espera: <strong>5 minutos</strong>. ¿Hay algo más en lo que pueda ayudarte mientras tanto?'}
 ];
