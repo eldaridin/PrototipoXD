@@ -7,33 +7,39 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
 <!-- ══════════════════════════════════════════ NAVBAR -->
-<nav class="navbar" id="mainNav">
+<header>
+<nav class="navbar" id="mainNav" aria-label="Navegación principal">
     <div class="navbar-container">
-        <div class="logo" onclick="navigateTo('landing')">🛂 Aduanas System</div>
+        <button class="logo" onclick="navigateTo('landing')" aria-label="Aduanas System — ir al inicio">🛂 Aduanas System</button>
         <ul class="nav-menu hidden" id="publicNav"></ul>
         <ul class="nav-menu hidden" id="authNav">
             <li><a href="#" class="nav-link" onclick="navigateTo('dashboard');return false">Dashboard</a></li>
         </ul>
         <div class="nav-user hidden" id="userInfoBar">
             <span class="user-badge" id="userBadgeText">Usuario</span>
-            <button class="logout-btn" onclick="handleLogout()">Salir</button>
+            <button class="logout-btn" onclick="handleLogout()">Cerrar sesión</button>
         </div>
         <button class="login-btn" id="loginBtnNav" onclick="toggleLoginModal()">Ingreso</button>
     </div>
 </nav>
+</header>
 
 <!-- BREADCRUMB -->
-<div class="breadcrumb hidden" id="breadcrumb">
+<nav class="breadcrumb hidden" id="breadcrumb" aria-label="Migas de navegación">
     <div class="breadcrumb-inner">
-        <button class="back-btn" onclick="navigateBack()">← Volver</button>
-        <span id="breadcrumbText">Módulo</span>
+        <button class="back-btn" onclick="navigateBack()" aria-label="Volver a la vista anterior">← Volver</button>
+        <span id="breadcrumbText" aria-current="page">Módulo</span>
     </div>
-</div>
+</nav>
+
+<!-- Región de anuncios para lectores de pantalla -->
+<div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
 <!-- ══════════════════════════════════════════ MAIN -->
-<main>
+<main id="main-content" tabindex="-1">
 
 <!-- ─── LANDING ─── -->
 <div id="view-landing" class="view active">
@@ -87,11 +93,11 @@
         <div class="form-step active" id="rf01-step1">
             <h3>Datos del Menor</h3>
             <div class="form-grid">
-                <div class="form-group"><label>RUT del Menor *</label><input type="text" id="rf01-rut" placeholder="12.345.678-K"></div>
-                <div class="form-group"><label>Nombre Completo *</label><input type="text" id="rf01-nombre" placeholder="Nombre y apellidos"></div>
-                <div class="form-group"><label>Fecha de Nacimiento *</label><input type="date" id="rf01-nacimiento"></div>
-                <div class="form-group"><label>Nacionalidad *</label>
-                    <select id="rf01-nacionalidad">
+                <div class="form-group"><label for="rf01-rut">RUT del Menor *</label><input type="text" id="rf01-rut" placeholder="12.345.678-K" aria-required="true"></div>
+                <div class="form-group"><label for="rf01-nombre">Nombre Completo *</label><input type="text" id="rf01-nombre" placeholder="Nombre y apellidos" aria-required="true"></div>
+                <div class="form-group"><label for="rf01-nacimiento">Fecha de Nacimiento *</label><input type="date" id="rf01-nacimiento" aria-required="true"></div>
+                <div class="form-group"><label for="rf01-nacionalidad">Nacionalidad *</label>
+                    <select id="rf01-nacionalidad" aria-required="true">
                         <option value="">Seleccione...</option>
                         <option value="CL">Chilena</option>
                         <option value="AR">Argentina</option>
@@ -100,54 +106,57 @@
                         <option value="otro">Otra</option>
                     </select>
                 </div>
-                <div class="form-group"><label>N° Pasaporte / Cédula</label><input type="text" id="rf01-pasaporte" placeholder="Número de documento"></div>
-                <div class="form-group"><label>País de Destino *</label>
-                    <select id="rf01-destino">
+                <div class="form-group"><label for="rf01-pasaporte">N° Pasaporte / Cédula</label><input type="text" id="rf01-pasaporte" placeholder="Número de documento"></div>
+                <div class="form-group"><label for="rf01-destino">País de Destino *</label>
+                    <select id="rf01-destino" aria-required="true">
                         <option value="">Seleccione...</option>
                         <option value="AR">Argentina</option>
                         <option value="CL">Chile (retorno)</option>
                     </select>
                 </div>
             </div>
-            <div class="form-actions"><button class="btn-primary" onclick="rf01NextStep(1)">Siguiente →</button></div>
+            <div class="form-actions"><button class="btn-primary" onclick="rf01NextStep(1)">Siguiente</button></div>
         </div>
         <div class="form-step hidden" id="rf01-step2">
             <h3>Modalidad de Viaje</h3>
-            <div class="radio-group">
-                <label class="radio-card"><input type="radio" name="rf01-modalidad" value="ambos"><div class="radio-content"><div class="radio-icon">👨‍👩‍👧</div><strong>Con ambos padres</strong><p>El menor viaja con padre y madre</p></div></label>
-                <label class="radio-card"><input type="radio" name="rf01-modalidad" value="un_padre" onchange="toggleTutorInfo()"><div class="radio-content"><div class="radio-icon">👩‍👧</div><strong>Con un padre/madre</strong><p>Requiere autorización notarial del progenitor ausente</p></div></label>
-                <label class="radio-card"><input type="radio" name="rf01-modalidad" value="sin_padres" onchange="toggleTutorInfo()"><div class="radio-content"><div class="radio-icon">✈️</div><strong>Sin padres / con tercero</strong><p>Requiere autorización notarial de ambos progenitores</p></div></label>
-            </div>
+            <fieldset style="border:none;padding:0">
+                <legend class="sr-only">Seleccione la modalidad de viaje del menor</legend>
+                <div class="radio-group">
+                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="ambos"><div class="radio-content"><div class="radio-icon" aria-hidden="true">👨‍👩‍👧</div><strong>Con ambos padres</strong><p>El menor viaja con padre y madre</p></div></label>
+                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="un_padre" onchange="toggleTutorInfo()"><div class="radio-content"><div class="radio-icon" aria-hidden="true">👩‍👧</div><strong>Con un padre/madre</strong><p>Requiere autorización notarial del progenitor ausente</p></div></label>
+                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="sin_padres" onchange="toggleTutorInfo()"><div class="radio-content"><div class="radio-icon" aria-hidden="true">✈️</div><strong>Sin padres / con tercero</strong><p>Requiere autorización notarial de ambos progenitores</p></div></label>
+                </div>
+            </fieldset>
             <div id="rf01-tutor-info" class="hidden form-grid" style="margin-top:1.5rem">
-                <div class="form-group"><label>Nombre del Acompañante *</label><input type="text" id="rf01-tutor-nombre" placeholder="Nombre completo"></div>
-                <div class="form-group"><label>RUT del Acompañante *</label><input type="text" id="rf01-tutor-rut" placeholder="12.345.678-K"></div>
+                <div class="form-group"><label for="rf01-tutor-nombre">Nombre del Acompañante *</label><input type="text" id="rf01-tutor-nombre" placeholder="Nombre completo" aria-required="true"></div>
+                <div class="form-group"><label for="rf01-tutor-rut">RUT del Acompañante *</label><input type="text" id="rf01-tutor-rut" placeholder="12.345.678-K" aria-required="true"></div>
             </div>
             <div class="form-actions">
-                <button class="btn-secondary" onclick="rf01GoStep(1)">← Anterior</button>
-                <button class="btn-primary" onclick="rf01NextStep(2)">Siguiente →</button>
+                <button class="btn-secondary" onclick="rf01GoStep(1)">Anterior</button>
+                <button class="btn-primary" onclick="rf01NextStep(2)">Siguiente</button>
             </div>
         </div>
         <div class="form-step hidden" id="rf01-step3">
             <h3>Carga de Documentación</h3>
-            <div id="rf01-docs-reqs" class="info-box" style="margin-bottom:1.5rem"></div>
-            <div class="upload-area" onclick="simulateUpload('rf01-doc1')">
-                <div class="upload-icon">📎</div>
+            <div id="rf01-docs-reqs" class="info-box" style="margin-bottom:1.5rem" role="note"></div>
+            <div class="upload-area" role="button" tabindex="0" onclick="simulateUpload('rf01-doc1')" onkeydown="if(event.key==='Enter'||event.key===' '){simulateUpload('rf01-doc1')}" aria-label="Adjuntar autorización notarial">
+                <div class="upload-icon" aria-hidden="true">📎</div>
                 <p><strong>Autorización Notarial</strong></p>
-                <p class="upload-hint">Haga clic para adjuntar el archivo</p>
+                <p class="upload-hint">Haga clic o presione Enter para adjuntar</p>
                 <span class="upload-status" id="rf01-doc1-status">Sin archivo</span>
             </div>
-            <div class="upload-area" onclick="simulateUpload('rf01-doc2')">
-                <div class="upload-icon">📎</div>
+            <div class="upload-area" role="button" tabindex="0" onclick="simulateUpload('rf01-doc2')" onkeydown="if(event.key==='Enter'||event.key===' '){simulateUpload('rf01-doc2')}" aria-label="Adjuntar cédula de identidad o pasaporte del menor">
+                <div class="upload-icon" aria-hidden="true">📎</div>
                 <p><strong>Cédula de Identidad / Pasaporte del Menor</strong></p>
-                <p class="upload-hint">Haga clic para adjuntar el archivo</p>
+                <p class="upload-hint">Haga clic o presione Enter para adjuntar</p>
                 <span class="upload-status" id="rf01-doc2-status">Sin archivo</span>
             </div>
             <div class="form-group" style="margin-top:1.5rem">
                 <label><input type="checkbox" id="rf01-ocr"> Autorizo la verificación OCR de autenticidad notarial</label>
             </div>
             <div class="form-actions">
-                <button class="btn-secondary" onclick="rf01GoStep(2)">← Anterior</button>
-                <button class="btn-primary" onclick="rf01Submit()">✅ Validar y Registrar</button>
+                <button class="btn-secondary" onclick="rf01GoStep(2)">Anterior</button>
+                <button class="btn-primary" onclick="rf01Submit()">Validar y Registrar</button>
             </div>
         </div>
         <div class="form-step hidden" id="rf01-step4"><div id="rf01-result"></div></div>
@@ -162,26 +171,37 @@
             <div><h2>Admisión y Salida de Vehículos</h2><p>Formulario Acuerdo Chileno-Argentino · Validación plazos 180/90 días</p></div>
             <span class="tag alto">Alto</span>
         </div>
+        <div class="info-box" style="margin-bottom:1.5rem" role="note">
+            <strong>Admisión Temporal de Vehículos (TITV):</strong> El plazo de permanencia del vehículo es equivalente al que la autoridad migratoria (PDI) otorgue al conductor en la misma entrada. No existe un plazo fijo de 180 o 90 días — depende de cada trámite migratorio individual.
+        </div>
         <div class="two-col">
             <div class="form-panel">
                 <h3>Datos del Vehículo</h3>
-                <div class="form-group"><label>Patente *</label><input type="text" id="rf02-patente" placeholder="ABC-1234" oninput="this.value=this.value.toUpperCase()"></div>
-                <div class="form-group">
-                    <label>Tipo de Operación *</label>
+                <div class="form-group"><label for="rf02-patente">Patente *</label><input type="text" id="rf02-patente" placeholder="ABC-1234" oninput="this.value=this.value.toUpperCase()" aria-required="true"></div>
+                <fieldset style="border:none;padding:0;margin-bottom:.5rem">
+                    <legend style="font-weight:600;font-size:.9rem;color:#444;margin-bottom:.4rem">Tipo de Operación *</legend>
                     <div class="btn-toggle-group">
-                        <button class="btn-toggle active" id="rf02-btn-entrada" onclick="setTipoOp('ENTRADA')">🔽 Entrada a Chile</button>
-                        <button class="btn-toggle" id="rf02-btn-salida" onclick="setTipoOp('SALIDA')">🔼 Salida de Chile</button>
+                        <button class="btn-toggle active" id="rf02-btn-entrada" onclick="setTipoOp('ENTRADA')" aria-pressed="true">Entrada a Chile</button>
+                        <button class="btn-toggle" id="rf02-btn-salida" onclick="setTipoOp('SALIDA')" aria-pressed="false">Salida de Chile</button>
                     </div>
                     <input type="hidden" id="rf02-tipo-op" value="ENTRADA">
+                </fieldset>
+                <div class="form-group"><label for="rf02-marca">Marca</label><input type="text" id="rf02-marca" placeholder="Toyota, Ford, etc."></div>
+                <div class="form-group"><label for="rf02-modelo">Modelo</label><input type="text" id="rf02-modelo" placeholder="Corolla, Ranger, etc."></div>
+                <div class="form-group"><label for="rf02-color">Color</label><input type="text" id="rf02-color" placeholder="Color del vehículo"></div>
+                <div class="form-group"><label for="rf02-anio">Año</label><input type="number" id="rf02-anio" min="1990" max="2026" placeholder="2020"></div>
+                <div class="form-group"><label for="rf02-propietario">RUT Propietario *</label><input type="text" id="rf02-propietario" placeholder="12.345.678-K" aria-required="true"></div>
+                <div class="dpte-section" role="note">
+                    <h4>Declaración de Porte de Efectivo (DPTE)</h4>
+                    <p>Conforme al art. 168 bis de la Ordenanza de Aduanas y Ley N°19.913: si usted o el propietario del vehículo porta efectivo, cheques al portador u otros instrumentos negociables por un valor igual o superior a <strong>USD 10.000</strong> (o equivalente en otra moneda), debe declararlos ante el funcionario de Aduanas. La omisión puede constituir contrabando.</p>
+                    <label style="display:flex;align-items:flex-start;gap:.5rem;margin-top:.75rem;font-size:.9rem">
+                        <input type="checkbox" id="rf02-dpte" style="margin-top:.25rem">
+                        <span>Declaro que porto o transporto efectivo o instrumentos al portador iguales o superiores a USD 10.000</span>
+                    </label>
                 </div>
-                <div class="form-group"><label>Marca</label><input type="text" id="rf02-marca" placeholder="Toyota, Ford, etc."></div>
-                <div class="form-group"><label>Modelo</label><input type="text" id="rf02-modelo" placeholder="Corolla, Ranger, etc."></div>
-                <div class="form-group"><label>Color</label><input type="text" id="rf02-color" placeholder="Color del vehículo"></div>
-                <div class="form-group"><label>Año</label><input type="number" id="rf02-anio" min="1990" max="2026" placeholder="2020"></div>
-                <div class="form-group"><label>RUT Propietario *</label><input type="text" id="rf02-propietario" placeholder="12.345.678-K"></div>
-                <div class="form-actions"><button class="btn-primary" onclick="rf02Validate()">🔍 Validar Vehículo</button></div>
+                <div class="form-actions"><button class="btn-primary" onclick="rf02Validate()">Validar Vehículo</button></div>
             </div>
-            <div class="result-panel" id="rf02-result-panel">
+            <div class="result-panel" id="rf02-result-panel" aria-live="polite">
                 <h3>Resultado de Validación</h3>
                 <div id="rf02-result-content">
                     <div class="result-empty"><p>Complete el formulario y presione "Validar Vehículo" para obtener el resultado.</p></div>
@@ -199,47 +219,55 @@
             <div><h2>Declaración Jurada Digital SAG</h2><p>Formulario electrónico de productos de riesgo sanitario</p></div>
             <span class="tag alto">Alto</span>
         </div>
-        <div class="info-box warning-box" style="margin-bottom:1.5rem">
-            <strong>⚠️ Importante:</strong> Toda persona que ingrese o salga de Chile debe declarar el transporte de productos de origen animal o vegetal. La no declaración puede resultar en multas de hasta 50 UTM.
+        <div class="info-box warning-box" style="margin-bottom:1.5rem" role="note">
+            <strong>Obligatoria (Base Legal: Ley N°18.755 — SAG):</strong> Toda persona mayor de 18 años que ingrese a Chile está obligada a declarar si porta, en su vestimenta, equipaje o medio de transporte, alguno de los bienes listados a continuación. Por los menores, declara su representante. La declaración es única por ingreso y tiene vigencia solo para la fecha declarada. La omisión o falsedad puede derivar en decomiso del producto y aplicación de medidas sanitarias. Esta declaración se integra con el control aduanero de equipaje.
         </div>
         <div class="form-panel-wide">
-            <h3>Declaración de Productos</h3>
-            <p style="margin-bottom:1rem;color:#666">Marque los productos que transporta:</p>
-            <div class="checklist-grid">
-                <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="carnes" onchange="rf03CheckRisk()">
-                    <div class="check-content"><span class="check-icon">🥩</span><div><strong>Carnes y embutidos</strong><p>Res, cerdo, pollo, cordero, fiambres</p><span class="risk-badge risk-alto">RIESGO ALTO</span></div></div>
-                </label>
-                <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="lacteos" onchange="rf03CheckRisk()">
-                    <div class="check-content"><span class="check-icon">🧀</span><div><strong>Lácteos y huevos</strong><p>Leche, queso, mantequilla, huevos</p><span class="risk-badge risk-alto">RIESGO ALTO</span></div></div>
-                </label>
-                <label class="check-item"><input type="checkbox" class="sag-product" data-risk="medio" value="frutas" onchange="rf03CheckRisk()">
-                    <div class="check-content"><span class="check-icon">🍎</span><div><strong>Frutas y verduras frescas</strong><p>Incluye semillas y plantas</p><span class="risk-badge risk-medio">RIESGO MEDIO</span></div></div>
-                </label>
-                <label class="check-item"><input type="checkbox" class="sag-product" data-risk="bajo" value="procesados" onchange="rf03CheckRisk()">
-                    <div class="check-content"><span class="check-icon">🥫</span><div><strong>Alimentos procesados</strong><p>Enlatados, empaquetados herméticos</p><span class="risk-badge risk-bajo">RIESGO BAJO</span></div></div>
-                </label>
-                <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="mascotas" onchange="rf03CheckRisk()">
-                    <div class="check-content"><span class="check-icon">🐾</span><div><strong>Mascotas / Animales vivos</strong><p>Requiere certificado veterinario</p><span class="risk-badge risk-alto">RIESGO ALTO</span></div></div>
-                </label>
-                <label class="check-item"><input type="checkbox" class="sag-product" data-risk="medio" value="tierra" onchange="rf03CheckRisk()">
-                    <div class="check-content"><span class="check-icon">🌱</span><div><strong>Suelo / Tierra / Abono</strong><p>Material vegetal con raíces</p><span class="risk-badge risk-medio">RIESGO MEDIO</span></div></div>
-                </label>
-            </div>
-            <div id="rf03-warning" class="hidden alert-box alert-warning" style="margin:1.5rem 0">
-                <strong>⚠️ Productos de alto riesgo detectados.</strong> Debe adjuntar certificado sanitario oficial y será sometido a revisión por Oficial SAG.
+            <h3>Declaración de Productos (marque todo lo que transporta)</h3>
+            <fieldset style="border:none;padding:0">
+                <legend class="sr-only">Categorías de productos a declarar ante SAG</legend>
+                <div class="checklist-grid">
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="carnes" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">🥩</span><div><strong>Carnes y subproductos de origen animal</strong><p>Res, cerdo, pollo, cordero, fiambres, embutidos, miel, huevos</p><span class="risk-badge risk-alto" title="Requiere certificado sanitario">&#9650; RIESGO ALTO</span></div></div>
+                    </label>
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="lacteos" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">🧀</span><div><strong>Lácteos</strong><p>Leche, queso, mantequilla, yogur y derivados</p><span class="risk-badge risk-alto" title="Requiere certificado sanitario">&#9650; RIESGO ALTO</span></div></div>
+                    </label>
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="medio" value="frutas" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">🍎</span><div><strong>Vegetales, frutas y plantas</strong><p>Frutas y hortalizas frescas, semillas, plantas vivas, bulbos, partes de plantas</p><span class="risk-badge risk-medio" title="Requiere inspección">&#9679; RIESGO MEDIO</span></div></div>
+                    </label>
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="mascotas" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">🐾</span><div><strong>Animales vivos / Mascotas</strong><p>Requiere certificado veterinario oficial vigente, vacunas al día y documentación de la especie</p><span class="risk-badge risk-alto" title="Requiere certificado veterinario">&#9650; RIESGO ALTO</span></div></div>
+                    </label>
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="medio" value="tierra" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">🌱</span><div><strong>Suelo / Tierra / Abono / Restos vegetales</strong><p>Tierra adherida a calzado o equipaje, material orgánico, compost</p><span class="risk-badge risk-medio" title="Requiere inspección">&#9679; RIESGO MEDIO</span></div></div>
+                    </label>
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="bajo" value="procesados" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">🥫</span><div><strong>Alimentos procesados / conservas</strong><p>Enlatados o empaquetados herméticamente con etiqueta de país de origen</p><span class="risk-badge risk-bajo" title="Bajo riesgo">&#9675; RIESGO BAJO</span></div></div>
+                    </label>
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="agroquimicos" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">🧪</span><div><strong>Productos químicos / veterinarios agrícolas</strong><p>Pesticidas, fertilizantes, fármacos de uso veterinario, alimento para animales</p><span class="risk-badge risk-alto" title="Requiere certificado">&#9650; RIESGO ALTO</span></div></div>
+                    </label>
+                    <label class="check-item"><input type="checkbox" class="sag-product" data-risk="bajo" value="ninguno" onchange="rf03CheckRisk()">
+                        <div class="check-content"><span class="check-icon" aria-hidden="true">✔</span><div><strong>No porto ninguno de los anteriores</strong><p>Declaro que no transporto ninguno de los productos listados</p><span class="risk-badge risk-bajo">SIN PRODUCTOS</span></div></div>
+                    </label>
+                </div>
+            </fieldset>
+            <div id="rf03-warning" class="hidden alert-box alert-warning" style="margin:1.5rem 0" role="alert">
+                <strong>Atención — Productos de alto riesgo detectados.</strong> Debe adjuntar certificado sanitario oficial vigente y será sometido a revisión física por Oficial SAG.
             </div>
             <h3 style="margin-top:2rem">Adjuntar Certificados</h3>
-            <div class="upload-area" onclick="simulateUpload('rf03-cert')">
-                <div class="upload-icon">📎</div>
+            <div class="upload-area" role="button" tabindex="0" onclick="simulateUpload('rf03-cert')" onkeydown="if(event.key==='Enter'||event.key===' '){simulateUpload('rf03-cert')}" aria-label="Adjuntar certificado sanitario oficial">
+                <div class="upload-icon" aria-hidden="true">📎</div>
                 <p><strong>Certificado Sanitario Oficial</strong> (si aplica)</p>
-                <p class="upload-hint">Haga clic para adjuntar</p>
+                <p class="upload-hint">Haga clic o presione Enter para adjuntar</p>
                 <span class="upload-status" id="rf03-cert-status">Sin archivo</span>
             </div>
             <div class="form-group" style="margin-top:1.5rem">
-                <label><input type="checkbox" id="rf03-jurada"> Declaro bajo juramento que la información proporcionada es verídica y completa.</label>
+                <label for="rf03-jurada"><input type="checkbox" id="rf03-jurada"> Declaro bajo juramento que la información proporcionada es verídica y completa, y que no omito ningún producto de los listados.</label>
             </div>
-            <div class="form-actions"><button class="btn-primary" onclick="rf03Submit()">📤 Enviar Declaración</button></div>
-            <div id="rf03-result" class="hidden" style="margin-top:1.5rem"></div>
+            <div class="form-actions"><button class="btn-primary" onclick="rf03Submit()">Enviar Declaración SAG</button></div>
+            <div id="rf03-result" class="hidden" style="margin-top:1.5rem" aria-live="polite"></div>
         </div>
     </div>
 </div>
@@ -261,18 +289,19 @@
         <div class="form-panel-wide" style="margin-top:2rem">
             <h3>Validación Manual con Argentina</h3>
             <div class="form-grid">
-                <div class="form-group"><label>Tipo de Consulta</label>
+                <div class="form-group"><label for="rf04-tipo">Tipo de Consulta</label>
                     <select id="rf04-tipo"><option value="persona">Persona (RUT/Pasaporte)</option><option value="vehiculo">Vehículo (Patente)</option></select>
                 </div>
-                <div class="form-group"><label>Documento / Patente</label><input type="text" id="rf04-documento" placeholder="Ingrese el dato a validar"></div>
+                <div class="form-group"><label for="rf04-documento">Documento / Patente</label><input type="text" id="rf04-documento" placeholder="Ingrese el dato a validar"></div>
             </div>
-            <div class="form-actions"><button class="btn-primary" onclick="rf04Validate()">🔄 Validar con Argentina</button></div>
-            <div id="rf04-result" class="hidden" style="margin-top:1rem"></div>
+            <div class="form-actions"><button class="btn-primary" onclick="rf04Validate()">Validar con Argentina</button></div>
+            <div id="rf04-result" class="hidden" style="margin-top:1rem" aria-live="polite"></div>
         </div>
         <h3 style="margin:2rem 0 1rem">Validaciones Recientes</h3>
         <div class="table-wrapper">
-            <table class="data-table">
-                <thead><tr><th>Timestamp</th><th>Tipo</th><th>Documento</th><th>Resultado</th><th>Latencia</th></tr></thead>
+            <table class="data-table" aria-label="Registro de validaciones recientes con Argentina">
+                <caption class="sr-only">Últimas validaciones cruzadas con Aduana Argentina</caption>
+                <thead><tr><th scope="col">Timestamp</th><th scope="col">Tipo</th><th scope="col">Documento</th><th scope="col">Resultado</th><th scope="col">Latencia</th></tr></thead>
                 <tbody>
                     <tr><td>14:30:12</td><td>Persona</td><td>12.345.678-K</td><td><span class="badge badge-success">OK</span></td><td>143ms</td></tr>
                     <tr><td>14:28:55</td><td>Vehículo</td><td>ABC-1234</td><td><span class="badge badge-success">OK</span></td><td>201ms</td></tr>
@@ -284,65 +313,92 @@
     </div>
 </div>
 
-<!-- ─── RF05: CONTROL PDI/SAG ─── -->
+<!-- ─── RF05: CONTROL PDI / ADUANA / SAG ─── -->
 <div id="view-rf05" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">📋</div>
-            <div><h2>Control de Revisión de Pasajeros</h2><p>Registro y cierre del flujo PDI/SAG — Complejo Los Libertadores</p></div>
+            <div class="view-icon" aria-hidden="true">📋</div>
+            <div><h2 id="rf05-heading">Control de Revisión de Pasajeros</h2><p>Flujo secuencial: PDI/Migraciones → Aduanas → SAG — Complejo Los Libertadores</p></div>
             <span class="tag alto">Alto</span>
+        </div>
+        <div class="flow-steps" aria-label="Etapas del flujo de revisión" role="list">
+            <span class="flow-step active" id="flow-step-pdi" role="listitem">1. PDI / Migraciones</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <span class="flow-step" id="flow-step-aduana" role="listitem">2. Aduanas</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <span class="flow-step" id="flow-step-sag" role="listitem">3. SAG</span>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <span class="flow-step" id="flow-step-ok" role="listitem">Cruce autorizado</span>
         </div>
         <div class="form-panel-wide">
             <h3>Buscar Pasajero</h3>
             <div class="search-row">
-                <input type="text" id="rf05-search" placeholder="Ingrese RUT o nombre del pasajero...">
-                <button class="btn-primary" onclick="rf05Search()">🔍 Buscar</button>
+                <label for="rf05-search" class="sr-only">RUT o nombre del pasajero</label>
+                <input type="text" id="rf05-search" placeholder="Ingrese RUT o nombre del pasajero..." aria-label="RUT o nombre del pasajero">
+                <button class="btn-primary" onclick="rf05Search()">Buscar</button>
             </div>
             <div id="rf05-passenger-panel" class="hidden" style="margin-top:2rem">
                 <div class="passenger-card">
                     <div class="passenger-info">
-                        <div class="passenger-avatar">👤</div>
+                        <div class="passenger-avatar" aria-hidden="true">👤</div>
                         <div><h3 id="rf05-passenger-name">Juan Pérez González</h3><p id="rf05-passenger-rut">RUT: 12.345.678-9</p><p>Pasajero en tránsito</p></div>
                     </div>
                     <span class="badge badge-warning">En Proceso</span>
                 </div>
-                <div class="checklist-panel">
+                <div class="checklist-3col">
+                    <!-- ETAPA 1: PDI -->
                     <div class="checklist-col">
-                        <h4>🚔 Revisión PDI</h4>
+                        <h4>Etapa 1 — PDI / Migraciones</h4>
                         <div class="checklist-items">
-                            <label class="checklist-row"><input type="checkbox" id="pdi-identidad"><span>Verificación de identidad</span></label>
-                            <label class="checklist-row"><input type="checkbox" id="pdi-antecedentes"><span>Consulta de antecedentes migratorios</span></label>
-                            <label class="checklist-row"><input type="checkbox" id="pdi-visa"><span>Validación de visas/permisos</span></label>
-                            <label class="checklist-row"><input type="checkbox" id="pdi-arraigo"><span>Verificación de arraigo nacional</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="pdi-identidad"><span>Tipo y vigencia de documento de identidad (CI, pasaporte, DNI digital)</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="pdi-nacionalidad-pdi"><span>Nacionalidad y motivo de viaje</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="pdi-antecedentes"><span>Consulta de antecedentes migratorios e Interpol</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="pdi-visa"><span>Validación de visa / permiso de residencia (si aplica)</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="pdi-arraigo"><span>Verificación de arraigo nacional y causas pendientes</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="pdi-registro"><span>Registro migratorio electrónico generado</span></label>
                         </div>
                         <button class="btn-confirm" id="pdi-confirm-btn" onclick="confirmPDI()">Confirmar Revisión PDI</button>
-                        <div id="pdi-status" class="hidden status-badge-row"></div>
+                        <div id="pdi-status" class="hidden status-badge-row" role="status"></div>
                     </div>
-                    <div class="checklist-col">
-                        <h4>🌿 Revisión SAG</h4>
+                    <!-- ETAPA 2: ADUANAS -->
+                    <div class="checklist-col aduana-block" id="aduana-col" aria-disabled="true" style="opacity:.5;pointer-events:none">
+                        <h4>Etapa 2 — Servicio Nacional de Aduanas</h4>
                         <div class="checklist-items">
-                            <label class="checklist-row"><input type="checkbox" id="sag-equipaje"><span>Revisión de equipaje</span></label>
-                            <label class="checklist-row"><input type="checkbox" id="sag-declaracion"><span>Verificar declaración SAG presentada</span></label>
-                            <label class="checklist-row"><input type="checkbox" id="sag-productos"><span>Productos agropecuarios revisados</span></label>
-                            <label class="checklist-row"><input type="checkbox" id="sag-mascotas"><span>Animales/mascotas (si aplica)</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="aduana-declaracion"><span>Declaración conjunta Aduana-SAG presentada</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="aduana-equipaje"><span>Revisión de equipaje y mercancías</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="aduana-dpte"><span>Declaración de porte de efectivo (DPTE) si aplica ≥ USD 10.000</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="aduana-franquicia"><span>Franquicia de equipaje verificada (límites liberados)</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="aduana-titv"><span>TITV vehículo (si aplica): plazo según autorización migratoria</span></label>
+                        </div>
+                        <button class="btn-confirm" id="aduana-confirm-btn" onclick="confirmAduana()">Confirmar Revisión Aduanas</button>
+                        <div id="aduana-status" class="hidden status-badge-row" role="status"></div>
+                    </div>
+                    <!-- ETAPA 3: SAG -->
+                    <div class="checklist-col" id="sag-col" aria-disabled="true" style="opacity:.5;pointer-events:none">
+                        <h4>Etapa 3 — SAG Fitosanitario</h4>
+                        <div class="checklist-items">
+                            <label class="checklist-row"><input type="checkbox" id="sag-declaracion"><span>Declaración jurada SAG verificada</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="sag-equipaje"><span>Revisión manual / rayos X / brigada canina completada</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="sag-productos"><span>Productos agropecuarios revisados y con certificado (si aplica)</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="sag-mascotas"><span>Mascotas / animales: documentación y vacunas verificadas (si aplica)</span></label>
                         </div>
                         <button class="btn-confirm" id="sag-confirm-btn" onclick="confirmSAG()">Confirmar Revisión SAG</button>
-                        <div id="sag-status" class="hidden status-badge-row"></div>
+                        <div id="sag-status" class="hidden status-badge-row" role="status"></div>
                     </div>
                 </div>
                 <div id="rf05-barrier-panel" class="hidden barrier-panel">
                     <div class="barrier-ready">
-                        <div class="barrier-icon">🚦</div>
-                        <h3>Ambas revisiones completadas</h3>
-                        <p>PDI y SAG han confirmado la revisión. Puede habilitar el cruce de frontera.</p>
-                        <button class="btn-barrier" onclick="enableBarrier()">✅ Habilitar Cruce de Frontera</button>
+                        <div class="barrier-icon" aria-hidden="true">🚦</div>
+                        <h3>Las tres revisiones completadas</h3>
+                        <p>PDI, Aduanas y SAG han confirmado la revisión. Puede habilitar el cruce de frontera.</p>
+                        <button class="btn-barrier" onclick="enableBarrier()">Habilitar Cruce de Frontera</button>
                     </div>
                 </div>
-                <div id="rf05-barrier-done" class="hidden">
+                <div id="rf05-barrier-done" class="hidden" aria-live="polite">
                     <div class="success-box">
-                        <div class="success-icon">🟢</div>
-                        <h3>Barrera Habilitada</h3>
-                        <p>El pasajero ha sido autorizado para cruzar la frontera.</p>
+                        <div class="success-icon" aria-hidden="true">✅</div>
+                        <h3>Cruce Autorizado</h3>
+                        <p>El pasajero ha sido autorizado para cruzar la frontera. Registro migratorio electrónico emitido.</p>
                         <p><strong>Folio de auditoría:</strong> <span id="rf05-folio"></span></p>
                         <button class="btn-secondary" onclick="rf05Reset()" style="margin-top:1rem">Nuevo Pasajero</button>
                     </div>
@@ -361,15 +417,15 @@
             <span class="tag medio">Medio</span>
         </div>
         <div class="filter-bar">
-            <div class="form-group-inline"><label>Período:</label>
+            <div class="form-group-inline"><label for="rf06-periodo">Período:</label>
                 <select id="rf06-periodo"><option value="hoy">Hoy</option><option value="semana" selected>Esta semana</option><option value="mes">Este mes</option></select>
             </div>
-            <div class="form-group-inline"><label>Tipo:</label>
+            <div class="form-group-inline"><label for="rf06-tipo">Tipo:</label>
                 <select id="rf06-tipo"><option value="todos" selected>Todos</option><option value="pasajeros">Pasajeros</option><option value="vehiculos">Vehículos</option><option value="incidentes">Incidentes</option></select>
             </div>
-            <button class="btn-primary" onclick="showToast('Informe generado exitosamente','success')">📊 Generar Informe</button>
-            <button class="btn-secondary" onclick="showToast('Exportando PDF...','info')">📄 PDF</button>
-            <button class="btn-secondary" onclick="showToast('Exportando Excel...','info')">📗 Excel</button>
+            <button class="btn-primary" onclick="showToast('Informe generado exitosamente','success')">Generar Informe</button>
+            <button class="btn-secondary" onclick="showToast('Exportando PDF...','info')">Exportar PDF</button>
+            <button class="btn-secondary" onclick="showToast('Exportando Excel...','info')">Exportar Excel</button>
         </div>
         <div class="kpi-grid" style="margin:2rem 0">
             <div class="kpi-card"><span class="kpi-num">1.250</span><span class="kpi-label">Pasajeros hoy</span><span class="kpi-trend up">↑ 12% vs ayer</span></div>
@@ -403,8 +459,9 @@
         </div>
         <h3 style="margin:2rem 0 1rem">Detalle de Trámites</h3>
         <div class="table-wrapper">
-            <table class="data-table">
-                <thead><tr><th>Folio</th><th>Tipo</th><th>Hora</th><th>Estado</th><th>Módulo</th><th>Funcionario</th></tr></thead>
+            <table class="data-table" aria-label="Detalle de trámites del período seleccionado">
+                <caption class="sr-only">Listado de trámites procesados en el período</caption>
+                <thead><tr><th scope="col">Folio</th><th scope="col">Tipo</th><th scope="col">Hora</th><th scope="col">Estado</th><th scope="col">Módulo</th><th scope="col">Funcionario</th></tr></thead>
                 <tbody>
                     <tr><td>TRM-2026-001</td><td>Pasajero</td><td>14:30</td><td><span class="badge badge-success">Aprobado</span></td><td>Menores</td><td>J. Pérez</td></tr>
                     <tr><td>TRM-2026-002</td><td>Vehículo</td><td>14:28</td><td><span class="badge badge-success">Aprobado</span></td><td>Vehículos</td><td>M. García</td></tr>
@@ -426,23 +483,25 @@
             <span class="tag alto">Alto</span>
         </div>
         <div class="action-bar">
-            <input type="text" placeholder="Buscar usuario..." id="rf07-search" style="width:300px" oninput="rf07FilterUsers()">
-            <button class="btn-primary" onclick="rf07ToggleCreate()">+ Crear Usuario</button>
+            <label for="rf07-search" class="sr-only">Buscar usuario por nombre, RUT o email</label>
+            <input type="text" placeholder="Buscar usuario..." id="rf07-search" aria-label="Buscar usuario por nombre, RUT o email" style="width:300px" oninput="rf07FilterUsers()">
+            <button class="btn-primary" onclick="rf07ToggleCreate()" aria-expanded="false" id="rf07-create-toggle">+ Crear Usuario</button>
         </div>
         <div class="table-wrapper">
-            <table class="data-table">
-                <thead><tr><th>Nombre</th><th>RUT</th><th>Email</th><th>Rol</th><th>Estado</th><th>2FA</th><th>Acciones</th></tr></thead>
+            <table class="data-table" aria-label="Listado de usuarios del sistema">
+                <caption class="sr-only">Usuarios registrados en el sistema Aduanas</caption>
+                <thead><tr><th scope="col">Nombre</th><th scope="col">RUT</th><th scope="col">Email</th><th scope="col">Rol</th><th scope="col">Estado</th><th scope="col">2FA</th><th scope="col">Acciones</th></tr></thead>
                 <tbody id="rf07-users-table"></tbody>
             </table>
         </div>
-        <div id="rf07-create-panel" class="hidden form-panel-wide" style="margin-top:2rem;border:2px solid #667eea;padding:2rem;border-radius:10px">
+        <div id="rf07-create-panel" class="hidden form-panel-wide" style="margin-top:2rem;border:2px solid #667eea;padding:2rem;border-radius:10px" role="region" aria-label="Formulario creación de usuario">
             <h3>Crear Nuevo Usuario</h3>
             <div class="form-grid">
-                <div class="form-group"><label>Nombre Completo *</label><input type="text" id="rf07-new-nombre" placeholder="Nombre y apellidos"></div>
-                <div class="form-group"><label>RUT *</label><input type="text" id="rf07-new-rut" placeholder="12.345.678-K"></div>
-                <div class="form-group"><label>Email institucional *</label><input type="email" id="rf07-new-email" placeholder="usuario@aduanas.gob.cl"></div>
-                <div class="form-group"><label>Rol *</label>
-                    <select id="rf07-new-rol">
+                <div class="form-group"><label for="rf07-new-nombre">Nombre Completo *</label><input type="text" id="rf07-new-nombre" placeholder="Nombre y apellidos" aria-required="true"></div>
+                <div class="form-group"><label for="rf07-new-rut">RUT *</label><input type="text" id="rf07-new-rut" placeholder="12.345.678-K" aria-required="true"></div>
+                <div class="form-group"><label for="rf07-new-email">Email institucional *</label><input type="email" id="rf07-new-email" placeholder="usuario@aduanas.gob.cl" aria-required="true"></div>
+                <div class="form-group"><label for="rf07-new-rol">Rol *</label>
+                    <select id="rf07-new-rol" aria-required="true">
                         <option value="">Seleccione...</option>
                         <option value="admin">Administrador SNA</option>
                         <option value="aduanas">Funcionario Aduanas</option>
@@ -496,16 +555,16 @@
                 <h3>Configuración de Alertas</h3>
                 <div class="config-section">
                     <h4>Canal de notificación</h4>
-                    <label class="toggle-row"><span>Email institucional</span><div class="toggle active" onclick="this.classList.toggle('active')"></div></label>
-                    <label class="toggle-row"><span>Notificación en pantalla</span><div class="toggle active" onclick="this.classList.toggle('active')"></div></label>
-                    <label class="toggle-row"><span>SMS (si disponible)</span><div class="toggle" onclick="this.classList.toggle('active')"></div></label>
+                    <div class="toggle-row"><span id="tgl-email-lbl">Email institucional</span><button role="switch" aria-checked="true" aria-labelledby="tgl-email-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
+                    <div class="toggle-row"><span id="tgl-pantalla-lbl">Notificación en pantalla</span><button role="switch" aria-checked="true" aria-labelledby="tgl-pantalla-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
+                    <div class="toggle-row"><span id="tgl-sms-lbl">SMS (si disponible)</span><button role="switch" aria-checked="false" aria-labelledby="tgl-sms-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
                 </div>
                 <div class="config-section">
                     <h4>Tipos de alerta</h4>
-                    <label class="toggle-row"><span>Vencimiento de plazos</span><div class="toggle active" onclick="this.classList.toggle('active')"></div></label>
-                    <label class="toggle-row"><span>Trámites pendientes</span><div class="toggle active" onclick="this.classList.toggle('active')"></div></label>
-                    <label class="toggle-row"><span>Incidentes de seguridad</span><div class="toggle active" onclick="this.classList.toggle('active')"></div></label>
-                    <label class="toggle-row"><span>Actualizaciones del sistema</span><div class="toggle" onclick="this.classList.toggle('active')"></div></label>
+                    <div class="toggle-row"><span id="tgl-venc-lbl">Vencimiento de plazos</span><button role="switch" aria-checked="true" aria-labelledby="tgl-venc-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
+                    <div class="toggle-row"><span id="tgl-tram-lbl">Trámites pendientes</span><button role="switch" aria-checked="true" aria-labelledby="tgl-tram-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
+                    <div class="toggle-row"><span id="tgl-inc-lbl">Incidentes de seguridad</span><button role="switch" aria-checked="true" aria-labelledby="tgl-inc-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
+                    <div class="toggle-row"><span id="tgl-act-lbl">Actualizaciones del sistema</span><button role="switch" aria-checked="false" aria-labelledby="tgl-act-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
                 </div>
                 <button class="btn-primary" style="margin-top:1rem" onclick="showToast('Configuración guardada','success')">Guardar Configuración</button>
             </div>
@@ -525,19 +584,21 @@
             <h3>Consultar Patente</h3>
             <p style="color:#666;margin-bottom:1.5rem">Ingrese la patente del vehículo para consultar su estado en el Registro Civil, base de robados y multas pendientes.</p>
             <div class="search-big">
-                <input type="text" id="rf09-patente" placeholder="ABC-1234 o ABCD12" class="input-big" oninput="this.value=this.value.toUpperCase()" onkeypress="if(event.key==='Enter')rf09Search()">
-                <button class="btn-primary btn-big" onclick="rf09Search()">🔍 Consultar</button>
+                <label for="rf09-patente" class="sr-only">Número de patente del vehículo</label>
+                <input type="text" id="rf09-patente" placeholder="ABC-1234 o ABCD12" class="input-big" aria-label="Número de patente" oninput="this.value=this.value.toUpperCase()" onkeypress="if(event.key==='Enter')rf09Search()">
+                <button class="btn-primary btn-big" onclick="rf09Search()">Consultar</button>
             </div>
-            <div id="rf09-loader" class="hidden loading-indicator"><div class="spinner"></div><p>Consultando bases de datos...</p></div>
-            <div id="rf09-result" class="hidden" style="margin-top:2rem"></div>
+            <div id="rf09-loader" class="hidden loading-indicator" aria-live="polite"><div class="spinner" aria-hidden="true"></div><p>Consultando bases de datos...</p></div>
+            <div id="rf09-result" class="hidden" style="margin-top:2rem" aria-live="polite"></div>
             <p style="margin-top:1rem;color:#888;font-size:0.85rem">
                 💡 Prueba con: <strong>ROB-1234</strong> (encargado robo) · <strong>MLT-5678</strong> (multas) · Cualquier otra (sin novedad)
             </p>
         </div>
         <h3 style="margin:2rem 0 1rem">Consultas Recientes</h3>
         <div class="table-wrapper">
-            <table class="data-table">
-                <thead><tr><th>Patente</th><th>Hora</th><th>Resultado</th><th>Funcionario</th></tr></thead>
+            <table class="data-table" aria-label="Historial de consultas de patentes">
+                <caption class="sr-only">Últimas patentes consultadas en esta sesión</caption>
+                <thead><tr><th scope="col">Patente</th><th scope="col">Hora</th><th scope="col">Resultado</th><th scope="col">Funcionario</th></tr></thead>
                 <tbody id="rf09-history">
                     <tr><td>ABC-1234</td><td>14:28</td><td><span class="badge badge-success">Sin novedad</span></td><td>M. García</td></tr>
                     <tr><td>ROB-9988</td><td>14:15</td><td><span class="badge badge-danger">Encargado robo</span></td><td>J. Pérez</td></tr>
@@ -569,8 +630,9 @@
                     </div>
                 </div>
                 <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Escribe tu pregunta aquí..." onkeypress="if(event.key==='Enter')sendChatMessage()">
-                    <button class="chat-send-btn" onclick="sendChatMessage()">➤</button>
+                    <label for="chatInput" class="sr-only">Escribe tu pregunta al asistente</label>
+                    <input type="text" id="chatInput" placeholder="Escribe tu pregunta aquí..." aria-label="Mensaje al asistente" onkeypress="if(event.key==='Enter')sendChatMessage()">
+                    <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Enviar mensaje">➤</button>
                 </div>
             </div>
             <div class="chatbot-topics">
@@ -593,19 +655,19 @@
 </main>
 
 <!-- ══════════════════════════════════════════ LOGIN MODAL -->
-<div id="loginModal" class="modal">
+<div id="loginModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title">
     <div class="modal-content modal-login">
-        <span class="close" onclick="toggleLoginModal()">&times;</span>
+        <button class="close" onclick="toggleLoginModal()" aria-label="Cerrar modal de ingreso">&times;</button>
         <div class="login-header">
-            <div class="login-logo">🛂</div>
-            <h2>Ingreso al Sistema</h2>
+            <div class="login-logo" aria-hidden="true">🛂</div>
+            <h2 id="login-modal-title">Ingreso al Sistema</h2>
             <p>Aduanas System — Los Libertadores</p>
         </div>
-        <form onsubmit="handleLogin(event)">
-            <div class="form-group"><label>RUT *</label><input type="text" id="rut" placeholder="12.345.678-K" required></div>
-            <div class="form-group"><label>Contraseña *</label><input type="password" id="password" placeholder="Contraseña" required></div>
-            <div class="form-group"><label>Rol *</label>
-                <select id="role" required>
+        <form onsubmit="handleLogin(event)" novalidate>
+            <div class="form-group"><label for="rut">RUT *</label><input type="text" id="rut" placeholder="12.345.678-K" required aria-required="true" autocomplete="username"></div>
+            <div class="form-group"><label for="password">Contraseña *</label><input type="password" id="password" placeholder="Contraseña" required aria-required="true" autocomplete="current-password"></div>
+            <div class="form-group"><label for="role">Rol *</label>
+                <select id="role" required aria-required="true">
                     <option value="">Seleccione su rol</option>
                     <option value="turista">Turista / Pasajero</option>
                     <option value="aduanas">Funcionario Aduanas</option>
@@ -615,9 +677,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Código 2FA (6 dígitos)</label>
-                <input type="text" id="codigo2fa" placeholder="123456" maxlength="6">
-                <small style="color:#888">Para el prototipo ingrese cualquier valor</small>
+                <label for="codigo2fa">Código 2FA (6 dígitos)</label>
+                <input type="text" id="codigo2fa" placeholder="123456" maxlength="6" autocomplete="one-time-code" inputmode="numeric" pattern="\d{6}">
+                <small style="color:#888">Prototipo: ingrese cualquier valor</small>
+            </div>
+            <div class="info-box" style="margin:.75rem 0;font-size:.82rem" role="note">
+                <strong>Aviso de privacidad (Ley N°21.719):</strong> Los datos ingresados serán tratados exclusivamente para autenticar el acceso a este sistema institucional. Base de licitud: ejercicio de potestades públicas. Responsable: Servicio Nacional de Aduanas / Complejo Los Libertadores.
             </div>
             <button type="submit" class="submit-btn">Ingresar al Sistema</button>
         </form>
@@ -625,7 +690,7 @@
 </div>
 
 <!-- Toast -->
-<div id="toast" class="toast hidden"><span id="toast-message"></span></div>
+<div id="toast" class="toast hidden" role="status" aria-live="polite" aria-atomic="true"><span id="toast-message"></span></div>
 
 <!-- FOOTER -->
 <footer class="footer">

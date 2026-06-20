@@ -5,7 +5,18 @@ let currentUser = null;
 let currentView = 'landing';
 let viewHistory = [];
 let pdiDone = false;
+let aduanasDone = false;
 let sagDone = false;
+
+// XSS-safe DOM text insertion
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+}
 
 const roleLabels = {
     turista: 'Turista / Pasajero',
@@ -66,6 +77,15 @@ function navigateTo(viewId) {
 
     if (viewId === 'dashboard') renderDashboard();
     if (viewId === 'rf07') renderUsersTable();
+
+    // Accesibilidad: mover foco al encabezado de la nueva vista
+    setTimeout(() => {
+        const heading = next && (next.querySelector('h1, h2'));
+        if (heading) {
+            if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+            heading.focus();
+        }
+    }, 80);
 }
 
 function navigateBack() {
@@ -299,8 +319,12 @@ function rf01Submit() {
 // ══════════════════════════════════════════
 function setTipoOp(tipo) {
     document.getElementById('rf02-tipo-op').value = tipo;
-    document.getElementById('rf02-btn-entrada').classList.toggle('active', tipo === 'ENTRADA');
-    document.getElementById('rf02-btn-salida').classList.toggle('active', tipo === 'SALIDA');
+    const btnEntrada = document.getElementById('rf02-btn-entrada');
+    const btnSalida = document.getElementById('rf02-btn-salida');
+    btnEntrada.classList.toggle('active', tipo === 'ENTRADA');
+    btnSalida.classList.toggle('active', tipo === 'SALIDA');
+    btnEntrada.setAttribute('aria-pressed', tipo === 'ENTRADA' ? 'true' : 'false');
+    btnSalida.setAttribute('aria-pressed', tipo === 'SALIDA' ? 'true' : 'false');
 }
 
 function rf02Validate() {
@@ -432,51 +456,105 @@ function rf05Search() {
     document.getElementById('rf05-passenger-name').textContent = p.name;
     document.getElementById('rf05-passenger-rut').textContent = 'RUT: ' + p.rut;
     document.getElementById('rf05-passenger-panel').classList.remove('hidden');
-    pdiDone = false; sagDone = false;
+    pdiDone = false; aduanasDone = false; sagDone = false;
     document.getElementById('rf05-barrier-panel').classList.add('hidden');
     document.getElementById('rf05-barrier-done').classList.add('hidden');
     document.getElementById('pdi-status').classList.add('hidden');
+    document.getElementById('aduana-status').classList.add('hidden');
     document.getElementById('sag-status').classList.add('hidden');
-    ['pdi-identidad','pdi-antecedentes','pdi-visa','pdi-arraigo',
+    // Bloquear Aduana y SAG hasta que PDI confirme
+    const aduanaCol = document.getElementById('aduana-col');
+    const sagCol = document.getElementById('sag-col');
+    aduanaCol.style.opacity = '.5'; aduanaCol.style.pointerEvents = 'none';
+    sagCol.style.opacity = '.5'; sagCol.style.pointerEvents = 'none';
+    // Actualizar indicadores de flujo
+    ['pdi','aduana','sag','ok'].forEach(s => {
+        const el = document.getElementById('flow-step-' + s);
+        if (el) { el.classList.remove('active','done'); }
+    });
+    document.getElementById('flow-step-pdi').classList.add('active');
+    // Reset checkboxes
+    ['pdi-identidad','pdi-nacionalidad-pdi','pdi-antecedentes','pdi-visa','pdi-arraigo','pdi-registro',
+     'aduana-declaracion','aduana-equipaje','aduana-dpte','aduana-franquicia','aduana-titv',
      'sag-equipaje','sag-declaracion','sag-productos','sag-mascotas'].forEach(id => {
-        document.getElementById(id).checked = false;
+        const el = document.getElementById(id);
+        if (el) el.checked = false;
+    });
+    // Re-habilitar botones
+    ['pdi-confirm-btn','aduana-confirm-btn','sag-confirm-btn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     });
 }
 
 function confirmPDI() {
-    const boxes = ['pdi-identidad','pdi-antecedentes','pdi-visa','pdi-arraigo'];
-    if (!boxes.every(id => document.getElementById(id).checked)) {
-        showToast('Complete todos los ítems de revisión PDI', 'warning'); return;
+    const boxes = ['pdi-identidad','pdi-nacionalidad-pdi','pdi-antecedentes','pdi-visa','pdi-arraigo','pdi-registro'];
+    if (!boxes.every(id => document.getElementById(id) && document.getElementById(id).checked)) {
+        showToast('Complete todos los ítems de revisión PDI / Migraciones', 'warning'); return;
     }
     pdiDone = true;
     const s = document.getElementById('pdi-status');
     s.classList.remove('hidden');
     s.style.background = '#eafaf1'; s.style.color = '#1e8449';
-    s.textContent = '✅ Revisión PDI Confirmada';
+    s.textContent = 'Revisión PDI / Migraciones confirmada';
     document.getElementById('pdi-confirm-btn').disabled = true;
     document.getElementById('pdi-confirm-btn').style.opacity = '.5';
-    checkBarrier();
+    // Habilitar Aduana (etapa 2)
+    const aduanaCol = document.getElementById('aduana-col');
+    aduanaCol.style.opacity = '1'; aduanaCol.style.pointerEvents = '';
+    document.getElementById('flow-step-pdi').classList.remove('active'); document.getElementById('flow-step-pdi').classList.add('done');
+    document.getElementById('flow-step-aduana').classList.add('active');
+    announceToScreenReader('PDI confirmado. Complete ahora la revisión de Aduanas.');
+}
+
+function confirmAduana() {
+    if (!pdiDone) { showToast('Debe completar la revisión PDI primero', 'warning'); return; }
+    const boxes = ['aduana-declaracion','aduana-equipaje','aduana-franquicia'];
+    if (!boxes.every(id => document.getElementById(id) && document.getElementById(id).checked)) {
+        showToast('Complete los ítems obligatorios de Aduanas', 'warning'); return;
+    }
+    aduanasDone = true;
+    const s = document.getElementById('aduana-status');
+    s.classList.remove('hidden');
+    s.style.background = '#eafaf1'; s.style.color = '#1e8449';
+    s.textContent = 'Revisión Aduanas confirmada';
+    document.getElementById('aduana-confirm-btn').disabled = true;
+    document.getElementById('aduana-confirm-btn').style.opacity = '.5';
+    // Habilitar SAG (etapa 3)
+    const sagCol = document.getElementById('sag-col');
+    sagCol.style.opacity = '1'; sagCol.style.pointerEvents = '';
+    document.getElementById('flow-step-aduana').classList.remove('active'); document.getElementById('flow-step-aduana').classList.add('done');
+    document.getElementById('flow-step-sag').classList.add('active');
+    announceToScreenReader('Aduanas confirmado. Complete ahora la revisión SAG.');
 }
 
 function confirmSAG() {
+    if (!aduanasDone) { showToast('Debe completar la revisión de Aduanas primero', 'warning'); return; }
     const boxes = ['sag-equipaje','sag-declaracion','sag-productos','sag-mascotas'];
-    if (!boxes.every(id => document.getElementById(id).checked)) {
+    if (!boxes.every(id => document.getElementById(id) && document.getElementById(id).checked)) {
         showToast('Complete todos los ítems de revisión SAG', 'warning'); return;
     }
     sagDone = true;
     const s = document.getElementById('sag-status');
     s.classList.remove('hidden');
     s.style.background = '#eafaf1'; s.style.color = '#1e8449';
-    s.textContent = '✅ Revisión SAG Confirmada';
+    s.textContent = 'Revisión SAG confirmada';
     document.getElementById('sag-confirm-btn').disabled = true;
     document.getElementById('sag-confirm-btn').style.opacity = '.5';
+    document.getElementById('flow-step-sag').classList.remove('active'); document.getElementById('flow-step-sag').classList.add('done');
     checkBarrier();
 }
 
 function checkBarrier() {
-    if (pdiDone && sagDone) {
+    if (pdiDone && aduanasDone && sagDone) {
         document.getElementById('rf05-barrier-panel').classList.remove('hidden');
+        announceToScreenReader('Las tres revisiones están completas. Puede habilitar el cruce de frontera.');
     }
+}
+
+function announceToScreenReader(msg) {
+    const region = document.getElementById('live-region');
+    if (region) { region.textContent = ''; setTimeout(() => { region.textContent = msg; }, 50); }
 }
 
 function enableBarrier() {
@@ -491,10 +569,11 @@ function rf05Reset() {
     document.getElementById('rf05-passenger-panel').classList.add('hidden');
     document.getElementById('rf05-barrier-done').classList.add('hidden');
     document.getElementById('rf05-search').value = '';
-    document.getElementById('pdi-confirm-btn').disabled = false;
-    document.getElementById('pdi-confirm-btn').style.opacity = '1';
-    document.getElementById('sag-confirm-btn').disabled = false;
-    document.getElementById('sag-confirm-btn').style.opacity = '1';
+    pdiDone = false; aduanasDone = false; sagDone = false;
+    ['pdi-confirm-btn','aduana-confirm-btn','sag-confirm-btn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+    });
 }
 
 // ══════════════════════════════════════════
@@ -542,6 +621,8 @@ function rf07FilterUsers() {
 function rf07ToggleCreate() {
     const p = document.getElementById('rf07-create-panel');
     p.classList.toggle('hidden');
+    const btn = document.getElementById('rf07-create-toggle');
+    if (btn) btn.setAttribute('aria-expanded', !p.classList.contains('hidden') ? 'true' : 'false');
 }
 
 function rf07CreateUser() {
@@ -572,8 +653,9 @@ function dismissNotif(btn) {
 // RF09 — PATENTES
 // ══════════════════════════════════════════
 function rf09Search() {
-    const pat = document.getElementById('rf09-patente').value.trim().toUpperCase();
-    if (!pat || pat.length < 4) { showToast('Ingrese una patente válida', 'warning'); return; }
+    const rawPat = document.getElementById('rf09-patente').value.trim().toUpperCase();
+    if (!rawPat || rawPat.length < 4) { showToast('Ingrese una patente válida', 'warning'); return; }
+    const pat = escapeHtml(rawPat); // sanitizar antes de insertar en DOM
     const loader = document.getElementById('rf09-loader');
     const result = document.getElementById('rf09-result');
     loader.classList.remove('hidden');
@@ -582,9 +664,9 @@ function rf09Search() {
         loader.classList.add('hidden');
         result.classList.remove('hidden');
         let html = '';
-        if (pat.startsWith('ROB')) {
-            html = `<div class="alert-box alert-danger">
-                <h3 style="color:#922b21;margin-bottom:.75rem">🚨 VEHÍCULO ENCARGADO POR ROBO</h3>
+        if (rawPat.startsWith('ROB')) {
+            html = `<div class="alert-box alert-danger" role="alert">
+                <h3 style="color:#922b21;margin-bottom:.75rem">VEHÍCULO ENCARGADO POR ROBO</h3>
                 <table style="width:100%;border-collapse:collapse;font-size:.9rem">
                     <tr><td style="padding:.4rem 0;color:#888">Patente</td><td><strong>${pat}</strong></td></tr>
                     <tr><td style="padding:.4rem 0;color:#888">Estado</td><td><strong style="color:#e74c3c">ENCARGADO POR ROBO</strong></td></tr>
@@ -593,11 +675,11 @@ function rf09Search() {
                 </table>
                 <p style="margin-top:1rem;font-weight:600">Acción: Retener vehículo y notificar PDI inmediatamente.</p>
             </div>`;
-            addHistory(pat, 'Encargado robo');
-        } else if (pat.startsWith('MLT')) {
+            addHistory(rawPat, 'Encargado robo');
+        } else if (rawPat.startsWith('MLT')) {
             const monto = (Math.floor(Math.random()*15)+3) + ' UTM';
-            html = `<div class="alert-box alert-warning">
-                <h3 style="color:#7d6608;margin-bottom:.75rem">⚠️ MULTAS PENDIENTES</h3>
+            html = `<div class="alert-box alert-warning" role="alert">
+                <h3 style="color:#7d6608;margin-bottom:.75rem">MULTAS PENDIENTES</h3>
                 <table style="width:100%;border-collapse:collapse;font-size:.9rem">
                     <tr><td style="padding:.4rem 0;color:#666">Patente</td><td><strong>${pat}</strong></td></tr>
                     <tr><td style="padding:.4rem 0;color:#666">Multas pendientes</td><td><strong>${monto}</strong></td></tr>
@@ -605,21 +687,21 @@ function rf09Search() {
                 </table>
                 <p style="margin-top:1rem;font-weight:600">Acción: Condicionar salida al pago de multas.</p>
             </div>`;
-            addHistory(pat, 'Multas pendientes');
+            addHistory(rawPat, 'Multas pendientes');
         } else {
-            html = `<div class="success-box">
-                <div class="success-icon">✅</div>
+            html = `<div class="success-box" role="status">
+                <div class="success-icon" aria-hidden="true">✅</div>
                 <h3>Sin Novedad</h3>
                 <table style="width:100%;border-collapse:collapse;font-size:.9rem;text-align:left">
                     <tr><td style="padding:.4rem 0;color:#888">Patente</td><td><strong>${pat}</strong></td></tr>
-                    <tr><td style="padding:.4rem 0;color:#888">Robo</td><td>Sin encargos ✓</td></tr>
-                    <tr><td style="padding:.4rem 0;color:#888">Multas</td><td>Sin deuda ✓</td></tr>
-                    <tr><td style="padding:.4rem 0;color:#888">Prohibiciones</td><td>Sin prohibiciones ✓</td></tr>
-                    <tr><td style="padding:.4rem 0;color:#888">Argentina</td><td>Sin impedimentos ✓</td></tr>
+                    <tr><td style="padding:.4rem 0;color:#888">Robo</td><td>Sin encargos</td></tr>
+                    <tr><td style="padding:.4rem 0;color:#888">Multas</td><td>Sin deuda</td></tr>
+                    <tr><td style="padding:.4rem 0;color:#888">Prohibiciones</td><td>Sin prohibiciones</td></tr>
+                    <tr><td style="padding:.4rem 0;color:#888">Argentina</td><td>Sin impedimentos</td></tr>
                 </table>
                 <p style="margin-top:1rem;color:#1e8449;font-weight:600">Vehículo autorizado para cruzar la frontera.</p>
             </div>`;
-            addHistory(pat, 'Sin novedad');
+            addHistory(rawPat, 'Sin novedad');
         }
         result.innerHTML = html;
     }, 1200);
@@ -629,7 +711,10 @@ function addHistory(pat, res) {
     const tbody = document.getElementById('rf09-history');
     const now = new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
     const badgeClass = res === 'Sin novedad' ? 'badge-success' : res.includes('robo') ? 'badge-danger' : 'badge-warning';
-    const row = `<tr><td>${pat}</td><td>${now}</td><td><span class="badge ${badgeClass}">${res}</span></td><td>${currentUser ? currentUser.rut.slice(-5) : 'Sistema'}</td></tr>`;
+    const safePat = escapeHtml(pat);
+    const safeRes = escapeHtml(res);
+    const safeUser = escapeHtml(currentUser ? currentUser.rut.slice(-5) : 'Sistema');
+    const row = `<tr><td>${safePat}</td><td>${now}</td><td><span class="badge ${badgeClass}">${safeRes}</span></td><td>${safeUser}</td></tr>`;
     tbody.insertAdjacentHTML('afterbegin', row);
 }
 
@@ -647,8 +732,8 @@ const chatResponses = [
      res:'Los documentos básicos para cruzar Los Libertadores son: (1) Cédula de identidad vigente o pasaporte, (2) Para vehículos: licencia de conducir, seguro obligatorio y formulario SAG, (3) Para menores: autorización notarial según caso. ¿Necesita más detalles?'},
     {keys:['plazo','días','tiempo','cuánto','duración'],
      res:'Los plazos de estadía son: Turistas en Chile: <strong>90 días prorrogables</strong>. Vehículos extranjeros en Chile: <strong>90 días</strong>. Vehículos chilenos en Argentina con acuerdo: <strong>180 días</strong>. Para consultar el plazo de un vehículo específico use el módulo <strong>Admisión de Vehículos</strong>.'},
-    {keys:['horario','hora','abierto','cierra','disponible'],
-     res:'El Complejo Los Libertadores opera <strong>24 horas los 7 días de la semana</strong>. Las horas de mayor flujo son entre las 10:00 y las 14:00. En temporada alta (enero-febrero) puede haber esperas de hasta 4 horas.'},
+    {keys:['horario','hora','abierto','cierra','disponible','cadena','nieve','invierno'],
+     res:'El Complejo Los Libertadores opera <strong>24 horas durante la temporada estival (aproximadamente diciembre a abril)</strong>. En temporada invernal opera aproximadamente de <strong>08:00 a 20:00 horas</strong>, sujeto a cierres por clima adverso, nevazones o condiciones de ruta. Antes de viajar en invierno, consulte el estado del paso en el sitio oficial del MOP o Carabineros. <strong>Importante:</strong> en temporada de nieve es obligatorio portar cadenas para nieve o tracción en las cuatro ruedas.'},
     {keys:['multa','multas','deuda','prohibición','cobro'],
      res:'Puede consultar multas pendientes de su vehículo en el módulo <strong>Validación de Patentes</strong>. El funcionario de aduanas también realizará esta consulta al momento de procesar su vehículo.'},
     {keys:['operador','humano','persona','agente','funcionario','hablar'],
@@ -699,7 +784,19 @@ function appendChatMsg(text, type) {
     const now = new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
     const div = document.createElement('div');
     div.className = 'chat-msg ' + type;
-    div.innerHTML = `<div class="msg-bubble">${text}</div><span class="msg-time">${now}</span>`;
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    // Respuestas del bot incluyen HTML de confianza; mensajes del usuario se escapan
+    if (type === 'bot') {
+        bubble.innerHTML = text; // texto generado internamente, no de entrada del usuario
+    } else {
+        bubble.textContent = text; // entrada del usuario: usa textContent para prevenir XSS
+    }
+    const time = document.createElement('span');
+    time.className = 'msg-time';
+    time.textContent = now;
+    div.appendChild(bubble);
+    div.appendChild(time);
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
 }
