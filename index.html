@@ -13,7 +13,10 @@
 <header>
 <nav class="navbar" id="mainNav" aria-label="Navegación principal">
     <div class="navbar-container">
-        <button class="logo" onclick="navigateTo('landing')" aria-label="Aduanas System — ir al inicio">🛂 Aduanas System</button>
+        <button class="logo" onclick="navigateTo('landing')" aria-label="Aduanas System — ir al inicio">
+            <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            Aduanas System
+        </button>
         <ul class="nav-menu hidden" id="publicNav"></ul>
         <ul class="nav-menu hidden" id="authNav">
             <li><a href="#" class="nav-link" onclick="navigateTo('dashboard');return false">Dashboard</a></li>
@@ -30,7 +33,10 @@
 <!-- BREADCRUMB -->
 <nav class="breadcrumb hidden" id="breadcrumb" aria-label="Migas de navegación">
     <div class="breadcrumb-inner">
-        <button class="back-btn" onclick="navigateBack()" aria-label="Volver a la vista anterior">← Volver</button>
+        <button class="back-btn" onclick="navigateBack()" aria-label="Volver a la vista anterior">
+            <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Volver
+        </button>
         <span id="breadcrumbText" aria-current="page">Módulo</span>
     </div>
 </nav>
@@ -43,9 +49,11 @@
 
 <!-- ─── LANDING ─── -->
 <div id="view-landing" class="view active">
-    <section class="hero" style="min-height:calc(100vh - 70px)">
+    <section class="hero">
         <div class="hero-content">
-            <div style="font-size:4rem;margin-bottom:1rem">🛂</div>
+            <div class="hero-emblem" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
             <h1>Aduanas System</h1>
             <p>Modernización de la Frontera Los Libertadores<br>Complejo Internacional — Región de Valparaíso</p>
             <button class="cta-btn" onclick="toggleLoginModal()">Ingresar al Sistema</button>
@@ -63,7 +71,10 @@
             <div class="status-item online"><span class="status-dot"></span> Sistema Online</div>
             <div class="status-item online"><span class="status-dot"></span> Argentina: Conectado</div>
             <div class="status-item"><span>Última sync: hace 2 min</span></div>
-            <div class="status-item"><span>📅 19/06/2026 — 14:32</span></div>
+            <div class="status-item">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>20/06/2026 — 14:32</span>
+            </div>
         </div>
         <div class="kpi-grid" id="dashboardKPIs"></div>
         <h3 class="section-label">Acceso Rápido</h3>
@@ -77,7 +88,9 @@
 <div id="view-rf01" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">👶</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
             <div><h2>Registro de Menores de Edad</h2><p>Gestión de documentación y autorizaciones notariales digitales</p></div>
             <span class="tag critico">Crítico</span>
         </div>
@@ -119,15 +132,37 @@
         </div>
         <div class="form-step hidden" id="rf01-step2">
             <h3>Modalidad de Viaje</h3>
-            <fieldset style="border:none;padding:0">
+            <fieldset class="fieldset-plain">
                 <legend class="sr-only">Seleccione la modalidad de viaje del menor</legend>
                 <div class="radio-group">
-                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="ambos"><div class="radio-content"><div class="radio-icon" aria-hidden="true">👨‍👩‍👧</div><strong>Con ambos padres</strong><p>El menor viaja con padre y madre</p></div></label>
-                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="un_padre" onchange="toggleTutorInfo()"><div class="radio-content"><div class="radio-icon" aria-hidden="true">👩‍👧</div><strong>Con un padre/madre</strong><p>Requiere autorización notarial del progenitor ausente</p></div></label>
-                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="sin_padres" onchange="toggleTutorInfo()"><div class="radio-content"><div class="radio-icon" aria-hidden="true">✈️</div><strong>Sin padres / con tercero</strong><p>Requiere autorización notarial de ambos progenitores</p></div></label>
+                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="ambos">
+
+                        <div class="radio-content">
+                            <div class="radio-icon" aria-hidden="true">
+                                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <strong>Con ambos padres</strong><p>El menor viaja con padre y madre</p>
+                        </div>
+                    </label>
+                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="un_padre" onchange="toggleTutorInfo()">
+                        <div class="radio-content">
+                            <div class="radio-icon" aria-hidden="true">
+                                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <strong>Con un padre/madre</strong><p>Requiere autorización notarial del progenitor ausente</p>
+                        </div>
+                    </label>
+                    <label class="radio-card"><input type="radio" name="rf01-modalidad" value="sin_padres" onchange="toggleTutorInfo()">
+                        <div class="radio-content">
+                            <div class="radio-icon" aria-hidden="true">
+                                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                            </div>
+                            <strong>Sin padres / con tercero</strong><p>Requiere autorización notarial de ambos progenitores</p>
+                        </div>
+                    </label>
                 </div>
             </fieldset>
-            <div id="rf01-tutor-info" class="hidden form-grid" style="margin-top:1.5rem">
+            <div id="rf01-tutor-info" class="hidden form-grid mt-md">
                 <div class="form-group"><label for="rf01-tutor-nombre">Nombre del Acompañante *</label><input type="text" id="rf01-tutor-nombre" placeholder="Nombre completo" aria-required="true"></div>
                 <div class="form-group"><label for="rf01-tutor-rut">RUT del Acompañante *</label><input type="text" id="rf01-tutor-rut" placeholder="12.345.678-K" aria-required="true"></div>
             </div>
@@ -138,20 +173,24 @@
         </div>
         <div class="form-step hidden" id="rf01-step3">
             <h3>Carga de Documentación</h3>
-            <div id="rf01-docs-reqs" class="info-box" style="margin-bottom:1.5rem" role="note"></div>
+            <div id="rf01-docs-reqs" class="info-box mb-md" role="note"></div>
             <div class="upload-area" role="button" tabindex="0" onclick="simulateUpload('rf01-doc1')" onkeydown="if(event.key==='Enter'||event.key===' '){simulateUpload('rf01-doc1')}" aria-label="Adjuntar autorización notarial">
-                <div class="upload-icon" aria-hidden="true">📎</div>
+                <div class="upload-icon" aria-hidden="true">
+                    <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                </div>
                 <p><strong>Autorización Notarial</strong></p>
                 <p class="upload-hint">Haga clic o presione Enter para adjuntar</p>
                 <span class="upload-status" id="rf01-doc1-status">Sin archivo</span>
             </div>
             <div class="upload-area" role="button" tabindex="0" onclick="simulateUpload('rf01-doc2')" onkeydown="if(event.key==='Enter'||event.key===' '){simulateUpload('rf01-doc2')}" aria-label="Adjuntar cédula de identidad o pasaporte del menor">
-                <div class="upload-icon" aria-hidden="true">📎</div>
+                <div class="upload-icon" aria-hidden="true">
+                    <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                </div>
                 <p><strong>Cédula de Identidad / Pasaporte del Menor</strong></p>
                 <p class="upload-hint">Haga clic o presione Enter para adjuntar</p>
                 <span class="upload-status" id="rf01-doc2-status">Sin archivo</span>
             </div>
-            <div class="form-group" style="margin-top:1.5rem">
+            <div class="form-group mt-md">
                 <label><input type="checkbox" id="rf01-ocr"> Autorizo la verificación OCR de autenticidad notarial</label>
             </div>
             <div class="form-actions">
@@ -167,19 +206,21 @@
 <div id="view-rf02" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">🚗</div>
-            <div><h2>Admisión y Salida de Vehículos</h2><p>Formulario Acuerdo Chileno-Argentino · Validación plazos 180/90 días</p></div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div><h2>Admisión y Salida de Vehículos</h2><p>Formulario Acuerdo Chileno-Argentino · Validación de plazos</p></div>
             <span class="tag alto">Alto</span>
         </div>
-        <div class="info-box" style="margin-bottom:1.5rem" role="note">
+        <div class="info-box mb-md" role="note">
             <strong>Admisión Temporal de Vehículos (TITV):</strong> El plazo de permanencia del vehículo es equivalente al que la autoridad migratoria (PDI) otorgue al conductor en la misma entrada. No existe un plazo fijo de 180 o 90 días — depende de cada trámite migratorio individual.
         </div>
         <div class="two-col">
             <div class="form-panel">
                 <h3>Datos del Vehículo</h3>
                 <div class="form-group"><label for="rf02-patente">Patente *</label><input type="text" id="rf02-patente" placeholder="ABC-1234" oninput="this.value=this.value.toUpperCase()" aria-required="true"></div>
-                <fieldset style="border:none;padding:0;margin-bottom:.5rem">
-                    <legend style="font-weight:600;font-size:.9rem;color:#444;margin-bottom:.4rem">Tipo de Operación *</legend>
+                <fieldset class="fieldset-plain mb-sm">
+                    <legend class="form-legend">Tipo de Operación *</legend>
                     <div class="btn-toggle-group">
                         <button class="btn-toggle active" id="rf02-btn-entrada" onclick="setTipoOp('ENTRADA')" aria-pressed="true">Entrada a Chile</button>
                         <button class="btn-toggle" id="rf02-btn-salida" onclick="setTipoOp('SALIDA')" aria-pressed="false">Salida de Chile</button>
@@ -194,8 +235,8 @@
                 <div class="dpte-section" role="note">
                     <h4>Declaración de Porte de Efectivo (DPTE)</h4>
                     <p>Conforme al art. 168 bis de la Ordenanza de Aduanas y Ley N°19.913: si usted o el propietario del vehículo porta efectivo, cheques al portador u otros instrumentos negociables por un valor igual o superior a <strong>USD 10.000</strong> (o equivalente en otra moneda), debe declararlos ante el funcionario de Aduanas. La omisión puede constituir contrabando.</p>
-                    <label style="display:flex;align-items:flex-start;gap:.5rem;margin-top:.75rem;font-size:.9rem">
-                        <input type="checkbox" id="rf02-dpte" style="margin-top:.25rem">
+                    <label class="check-label">
+                        <input type="checkbox" id="rf02-dpte">
                         <span>Declaro que porto o transporto efectivo o instrumentos al portador iguales o superiores a USD 10.000</span>
                     </label>
                 </div>
@@ -215,59 +256,87 @@
 <div id="view-rf03" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">🥬</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 22"/><path d="M7.67 22C7.22 17 9.17 12.7 13 10"/><path d="M3 22c2-4 6-8 14-8"/></svg>
+            </div>
             <div><h2>Declaración Jurada Digital SAG</h2><p>Formulario electrónico de productos de riesgo sanitario</p></div>
             <span class="tag alto">Alto</span>
         </div>
-        <div class="info-box warning-box" style="margin-bottom:1.5rem" role="note">
+        <div class="info-box warning-box mb-md" role="note">
             <strong>Obligatoria (Base Legal: Ley N°18.755 — SAG):</strong> Toda persona mayor de 18 años que ingrese a Chile está obligada a declarar si porta, en su vestimenta, equipaje o medio de transporte, alguno de los bienes listados a continuación. Por los menores, declara su representante. La declaración es única por ingreso y tiene vigencia solo para la fecha declarada. La omisión o falsedad puede derivar en decomiso del producto y aplicación de medidas sanitarias. Esta declaración se integra con el control aduanero de equipaje.
         </div>
         <div class="form-panel-wide">
             <h3>Declaración de Productos (marque todo lo que transporta)</h3>
-            <fieldset style="border:none;padding:0">
+            <fieldset class="fieldset-plain">
                 <legend class="sr-only">Categorías de productos a declarar ante SAG</legend>
                 <div class="checklist-grid">
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="carnes" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">🥩</span><div><strong>Carnes y subproductos de origen animal</strong><p>Res, cerdo, pollo, cordero, fiambres, embutidos, miel, huevos</p><span class="risk-badge risk-alto" title="Requiere certificado sanitario">&#9650; RIESGO ALTO</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/><path d="M6 14c-.7.7-1.69 0-2.5 0a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5"/><line x1="8" y1="14" x2="16" y2="6"/></svg></span>
+                            <div><strong>Carnes y subproductos de origen animal</strong><p>Res, cerdo, pollo, cordero, fiambres, embutidos, miel, huevos</p><span class="risk-badge risk-alto" title="Requiere certificado sanitario">&#9650; RIESGO ALTO</span></div>
+                        </div>
                     </label>
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="lacteos" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">🧀</span><div><strong>Lácteos</strong><p>Leche, queso, mantequilla, yogur y derivados</p><span class="risk-badge risk-alto" title="Requiere certificado sanitario">&#9650; RIESGO ALTO</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>
+                            <div><strong>Lácteos</strong><p>Leche, queso, mantequilla, yogur y derivados</p><span class="risk-badge risk-alto" title="Requiere certificado sanitario">&#9650; RIESGO ALTO</span></div>
+                        </div>
                     </label>
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="medio" value="frutas" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">🍎</span><div><strong>Vegetales, frutas y plantas</strong><p>Frutas y hortalizas frescas, semillas, plantas vivas, bulbos, partes de plantas</p><span class="risk-badge risk-medio" title="Requiere inspección">&#9679; RIESGO MEDIO</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 22"/><path d="M7.67 22C7.22 17 9.17 12.7 13 10"/><path d="M3 22c2-4 6-8 14-8"/></svg></span>
+                            <div><strong>Vegetales, frutas y plantas</strong><p>Frutas y hortalizas frescas, semillas, plantas vivas, bulbos, partes de plantas</p><span class="risk-badge risk-medio" title="Requiere inspección">&#9679; RIESGO MEDIO</span></div>
+                        </div>
                     </label>
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="mascotas" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">🐾</span><div><strong>Animales vivos / Mascotas</strong><p>Requiere certificado veterinario oficial vigente, vacunas al día y documentación de la especie</p><span class="risk-badge risk-alto" title="Requiere certificado veterinario">&#9650; RIESGO ALTO</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+                            <div><strong>Animales vivos / Mascotas</strong><p>Requiere certificado veterinario oficial vigente, vacunas al día y documentación de la especie</p><span class="risk-badge risk-alto" title="Requiere certificado veterinario">&#9650; RIESGO ALTO</span></div>
+                        </div>
                     </label>
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="medio" value="tierra" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">🌱</span><div><strong>Suelo / Tierra / Abono / Restos vegetales</strong><p>Tierra adherida a calzado o equipaje, material orgánico, compost</p><span class="risk-badge risk-medio" title="Requiere inspección">&#9679; RIESGO MEDIO</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+                            <div><strong>Suelo / Tierra / Abono / Restos vegetales</strong><p>Tierra adherida a calzado o equipaje, material orgánico, compost</p><span class="risk-badge risk-medio" title="Requiere inspección">&#9679; RIESGO MEDIO</span></div>
+                        </div>
                     </label>
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="bajo" value="procesados" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">🥫</span><div><strong>Alimentos procesados / conservas</strong><p>Enlatados o empaquetados herméticamente con etiqueta de país de origen</p><span class="risk-badge risk-bajo" title="Bajo riesgo">&#9675; RIESGO BAJO</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
+                            <div><strong>Alimentos procesados / conservas</strong><p>Enlatados o empaquetados herméticamente con etiqueta de país de origen</p><span class="risk-badge risk-bajo" title="Bajo riesgo">&#9675; RIESGO BAJO</span></div>
+                        </div>
                     </label>
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="alto" value="agroquimicos" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">🧪</span><div><strong>Productos químicos / veterinarios agrícolas</strong><p>Pesticidas, fertilizantes, fármacos de uso veterinario, alimento para animales</p><span class="risk-badge risk-alto" title="Requiere certificado">&#9650; RIESGO ALTO</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 9H8z"/><path d="M6.7 21a6 6 0 0 1 10.6 0H6.7z"/><line x1="12" y1="12" x2="12" y2="16"/></svg></span>
+                            <div><strong>Productos químicos / veterinarios agrícolas</strong><p>Pesticidas, fertilizantes, fármacos de uso veterinario, alimento para animales</p><span class="risk-badge risk-alto" title="Requiere certificado">&#9650; RIESGO ALTO</span></div>
+                        </div>
                     </label>
                     <label class="check-item"><input type="checkbox" class="sag-product" data-risk="bajo" value="ninguno" onchange="rf03CheckRisk()">
-                        <div class="check-content"><span class="check-icon" aria-hidden="true">✔</span><div><strong>No porto ninguno de los anteriores</strong><p>Declaro que no transporto ninguno de los productos listados</p><span class="risk-badge risk-bajo">SIN PRODUCTOS</span></div></div>
+                        <div class="check-content">
+                            <span class="check-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+                            <div><strong>No porto ninguno de los anteriores</strong><p>Declaro que no transporto ninguno de los productos listados</p><span class="risk-badge risk-bajo">SIN PRODUCTOS</span></div>
+                        </div>
                     </label>
                 </div>
             </fieldset>
-            <div id="rf03-warning" class="hidden alert-box alert-warning" style="margin:1.5rem 0" role="alert">
+            <div id="rf03-warning" class="hidden alert-box alert-warning mt-md mb-md" role="alert">
                 <strong>Atención — Productos de alto riesgo detectados.</strong> Debe adjuntar certificado sanitario oficial vigente y será sometido a revisión física por Oficial SAG.
             </div>
-            <h3 style="margin-top:2rem">Adjuntar Certificados</h3>
+            <h3 class="section-heading">Adjuntar Certificados</h3>
             <div class="upload-area" role="button" tabindex="0" onclick="simulateUpload('rf03-cert')" onkeydown="if(event.key==='Enter'||event.key===' '){simulateUpload('rf03-cert')}" aria-label="Adjuntar certificado sanitario oficial">
-                <div class="upload-icon" aria-hidden="true">📎</div>
+                <div class="upload-icon" aria-hidden="true">
+                    <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                </div>
                 <p><strong>Certificado Sanitario Oficial</strong> (si aplica)</p>
                 <p class="upload-hint">Haga clic o presione Enter para adjuntar</p>
                 <span class="upload-status" id="rf03-cert-status">Sin archivo</span>
             </div>
-            <div class="form-group" style="margin-top:1.5rem">
+            <div class="form-group mt-md">
                 <label for="rf03-jurada"><input type="checkbox" id="rf03-jurada"> Declaro bajo juramento que la información proporcionada es verídica y completa, y que no omito ningún producto de los listados.</label>
             </div>
             <div class="form-actions"><button class="btn-primary" onclick="rf03Submit()">Enviar Declaración SAG</button></div>
-            <div id="rf03-result" class="hidden" style="margin-top:1.5rem" aria-live="polite"></div>
+            <div id="rf03-result" class="hidden mt-md" aria-live="polite"></div>
         </div>
     </div>
 </div>
@@ -276,17 +345,31 @@
 <div id="view-rf04" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">🌐</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
             <div><h2>Panel de Interoperabilidad Internacional</h2><p>Estado de conexión y validación cruzada con Aduana Argentina</p></div>
             <span class="tag critico">Crítico</span>
         </div>
         <div class="status-grid">
-            <div class="status-card s-online"><div class="status-card-icon">🇦🇷</div><h3>Aduana Argentina</h3><div class="conn-status"><span class="pulse-dot"></span><span>CONECTADO</span></div><p class="status-detail">Última sync: hace 2 min</p><p class="status-detail">Latencia: 145ms</p></div>
-            <div class="status-card s-online"><div class="status-card-icon">🚔</div><h3>PDI / Migraciones</h3><div class="conn-status"><span class="pulse-dot"></span><span>CONECTADO</span></div><p class="status-detail">Última sync: hace 5 min</p><p class="status-detail">Latencia: 89ms</p></div>
-            <div class="status-card s-online"><div class="status-card-icon">🌿</div><h3>SAG Externo (API)</h3><div class="conn-status"><span class="pulse-dot"></span><span>CONECTADO</span></div><p class="status-detail">Última sync: hace 1 min</p><p class="status-detail">Latencia: 210ms</p></div>
-            <div class="status-card s-standby"><div class="status-card-icon">📴</div><h3>Modo Offline</h3><div class="conn-status warning"><span>DISPONIBLE</span></div><p class="status-detail">Cache local actualizado</p><button class="btn-secondary-sm" onclick="toggleOfflineMode()">Activar Modo Offline</button></div>
+            <div class="status-card s-online">
+                <div class="status-card-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+                <h3>Aduana Argentina</h3><div class="conn-status"><span class="pulse-dot"></span><span>CONECTADO</span></div><p class="status-detail">Última sync: hace 2 min</p><p class="status-detail">Latencia: 145ms</p>
+            </div>
+            <div class="status-card s-online">
+                <div class="status-card-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+                <h3>PDI / Migraciones</h3><div class="conn-status"><span class="pulse-dot"></span><span>CONECTADO</span></div><p class="status-detail">Última sync: hace 5 min</p><p class="status-detail">Latencia: 89ms</p>
+            </div>
+            <div class="status-card s-online">
+                <div class="status-card-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 22"/><path d="M7.67 22C7.22 17 9.17 12.7 13 10"/><path d="M3 22c2-4 6-8 14-8"/></svg></div>
+                <h3>SAG Externo (API)</h3><div class="conn-status"><span class="pulse-dot"></span><span>CONECTADO</span></div><p class="status-detail">Última sync: hace 1 min</p><p class="status-detail">Latencia: 210ms</p>
+            </div>
+            <div class="status-card s-standby">
+                <div class="status-card-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+                <h3>Modo Offline</h3><div class="conn-status warning"><span>DISPONIBLE</span></div><p class="status-detail">Cache local actualizado</p><button class="btn-secondary-sm" onclick="toggleOfflineMode()">Activar Modo Offline</button>
+            </div>
         </div>
-        <div class="form-panel-wide" style="margin-top:2rem">
+        <div class="form-panel-wide mt-lg">
             <h3>Validación Manual con Argentina</h3>
             <div class="form-grid">
                 <div class="form-group"><label for="rf04-tipo">Tipo de Consulta</label>
@@ -295,9 +378,9 @@
                 <div class="form-group"><label for="rf04-documento">Documento / Patente</label><input type="text" id="rf04-documento" placeholder="Ingrese el dato a validar"></div>
             </div>
             <div class="form-actions"><button class="btn-primary" onclick="rf04Validate()">Validar con Argentina</button></div>
-            <div id="rf04-result" class="hidden" style="margin-top:1rem" aria-live="polite"></div>
+            <div id="rf04-result" class="hidden mt-sm" aria-live="polite"></div>
         </div>
-        <h3 style="margin:2rem 0 1rem">Validaciones Recientes</h3>
+        <h3 class="section-heading">Validaciones Recientes</h3>
         <div class="table-wrapper">
             <table class="data-table" aria-label="Registro de validaciones recientes con Argentina">
                 <caption class="sr-only">Últimas validaciones cruzadas con Aduana Argentina</caption>
@@ -317,7 +400,9 @@
 <div id="view-rf05" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon" aria-hidden="true">📋</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg>
+            </div>
             <div><h2 id="rf05-heading">Control de Revisión de Pasajeros</h2><p>Flujo secuencial: PDI/Migraciones → Aduanas → SAG — Complejo Los Libertadores</p></div>
             <span class="tag alto">Alto</span>
         </div>
@@ -337,10 +422,12 @@
                 <input type="text" id="rf05-search" placeholder="Ingrese RUT o nombre del pasajero..." aria-label="RUT o nombre del pasajero">
                 <button class="btn-primary" onclick="rf05Search()">Buscar</button>
             </div>
-            <div id="rf05-passenger-panel" class="hidden" style="margin-top:2rem">
+            <div id="rf05-passenger-panel" class="hidden mt-lg">
                 <div class="passenger-card">
                     <div class="passenger-info">
-                        <div class="passenger-avatar" aria-hidden="true">👤</div>
+                        <div class="passenger-avatar" aria-hidden="true">
+                            <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
                         <div><h3 id="rf05-passenger-name">Juan Pérez González</h3><p id="rf05-passenger-rut">RUT: 12.345.678-9</p><p>Pasajero en tránsito</p></div>
                     </div>
                     <span class="badge badge-warning">En Proceso</span>
@@ -361,12 +448,12 @@
                         <div id="pdi-status" class="hidden status-badge-row" role="status"></div>
                     </div>
                     <!-- ETAPA 2: ADUANAS -->
-                    <div class="checklist-col aduana-block" id="aduana-col" aria-disabled="true" style="opacity:.5;pointer-events:none">
+                    <div class="checklist-col aduana-block locked" id="aduana-col" aria-disabled="true">
                         <h4>Etapa 2 — Servicio Nacional de Aduanas</h4>
                         <div class="checklist-items">
                             <label class="checklist-row"><input type="checkbox" id="aduana-declaracion"><span>Declaración conjunta Aduana-SAG presentada</span></label>
                             <label class="checklist-row"><input type="checkbox" id="aduana-equipaje"><span>Revisión de equipaje y mercancías</span></label>
-                            <label class="checklist-row"><input type="checkbox" id="aduana-dpte"><span>Declaración de porte de efectivo (DPTE) si aplica ≥ USD 10.000</span></label>
+                            <label class="checklist-row"><input type="checkbox" id="aduana-dpte"><span>Declaración de porte de efectivo (DPTE) si aplica &ge; USD 10.000</span></label>
                             <label class="checklist-row"><input type="checkbox" id="aduana-franquicia"><span>Franquicia de equipaje verificada (límites liberados)</span></label>
                             <label class="checklist-row"><input type="checkbox" id="aduana-titv"><span>TITV vehículo (si aplica): plazo según autorización migratoria</span></label>
                         </div>
@@ -374,7 +461,7 @@
                         <div id="aduana-status" class="hidden status-badge-row" role="status"></div>
                     </div>
                     <!-- ETAPA 3: SAG -->
-                    <div class="checklist-col" id="sag-col" aria-disabled="true" style="opacity:.5;pointer-events:none">
+                    <div class="checklist-col locked" id="sag-col" aria-disabled="true">
                         <h4>Etapa 3 — SAG Fitosanitario</h4>
                         <div class="checklist-items">
                             <label class="checklist-row"><input type="checkbox" id="sag-declaracion"><span>Declaración jurada SAG verificada</span></label>
@@ -388,7 +475,9 @@
                 </div>
                 <div id="rf05-barrier-panel" class="hidden barrier-panel">
                     <div class="barrier-ready">
-                        <div class="barrier-icon" aria-hidden="true">🚦</div>
+                        <div class="barrier-icon" aria-hidden="true">
+                            <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
                         <h3>Las tres revisiones completadas</h3>
                         <p>PDI, Aduanas y SAG han confirmado la revisión. Puede habilitar el cruce de frontera.</p>
                         <button class="btn-barrier" onclick="enableBarrier()">Habilitar Cruce de Frontera</button>
@@ -396,11 +485,13 @@
                 </div>
                 <div id="rf05-barrier-done" class="hidden" aria-live="polite">
                     <div class="success-box">
-                        <div class="success-icon" aria-hidden="true">✅</div>
+                        <div class="success-icon" aria-hidden="true">
+                            <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
                         <h3>Cruce Autorizado</h3>
                         <p>El pasajero ha sido autorizado para cruzar la frontera. Registro migratorio electrónico emitido.</p>
                         <p><strong>Folio de auditoría:</strong> <span id="rf05-folio"></span></p>
-                        <button class="btn-secondary" onclick="rf05Reset()" style="margin-top:1rem">Nuevo Pasajero</button>
+                        <button class="btn-secondary mt-sm" onclick="rf05Reset()">Nuevo Pasajero</button>
                     </div>
                 </div>
             </div>
@@ -412,7 +503,9 @@
 <div id="view-rf06" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">📊</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+            </div>
             <div><h2>Generación de Informes Estadísticos</h2><p>Reportes exportables en PDF y Excel</p></div>
             <span class="tag medio">Medio</span>
         </div>
@@ -427,7 +520,7 @@
             <button class="btn-secondary" onclick="showToast('Exportando PDF...','info')">Exportar PDF</button>
             <button class="btn-secondary" onclick="showToast('Exportando Excel...','info')">Exportar Excel</button>
         </div>
-        <div class="kpi-grid" style="margin:2rem 0">
+        <div class="kpi-grid mt-lg mb-lg">
             <div class="kpi-card"><span class="kpi-num">1.250</span><span class="kpi-label">Pasajeros hoy</span><span class="kpi-trend up">↑ 12% vs ayer</span></div>
             <div class="kpi-card"><span class="kpi-num">387</span><span class="kpi-label">Vehículos hoy</span><span class="kpi-trend up">↑ 8% vs ayer</span></div>
             <div class="kpi-card"><span class="kpi-num">42</span><span class="kpi-label">Menores registrados</span><span class="kpi-trend neutral">= sin cambio</span></div>
@@ -449,15 +542,15 @@
             <div class="chart-card">
                 <h3>Distribución por Tipo de Trámite</h3>
                 <div class="donut-labels">
-                    <div class="donut-label"><span class="dot" style="background:#1e3c72"></span> Pasajeros regulares (68%)</div>
-                    <div class="donut-label"><span class="dot" style="background:#667eea"></span> Menores de edad (12%)</div>
-                    <div class="donut-label"><span class="dot" style="background:#f39c12"></span> Vehículos (17%)</div>
-                    <div class="donut-label"><span class="dot" style="background:#e74c3c"></span> Incidentes (3%)</div>
+                    <div class="donut-label"><span class="dot dot-primary"></span> Pasajeros regulares (68%)</div>
+                    <div class="donut-label"><span class="dot dot-accent"></span> Menores de edad (12%)</div>
+                    <div class="donut-label"><span class="dot dot-warning"></span> Vehículos (17%)</div>
+                    <div class="donut-label"><span class="dot dot-danger"></span> Incidentes (3%)</div>
                 </div>
                 <div class="donut-visual"><div class="donut-chart"><div class="donut-inner"><span class="donut-num">1.682</span><span class="donut-sub">total</span></div></div></div>
             </div>
         </div>
-        <h3 style="margin:2rem 0 1rem">Detalle de Trámites</h3>
+        <h3 class="section-heading">Detalle de Trámites</h3>
         <div class="table-wrapper">
             <table class="data-table" aria-label="Detalle de trámites del período seleccionado">
                 <caption class="sr-only">Listado de trámites procesados en el período</caption>
@@ -478,13 +571,15 @@
 <div id="view-rf07" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">👤</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
             <div><h2>Gestión de Cuentas de Usuario</h2><p>Control de acceso RBAC con 2FA</p></div>
             <span class="tag alto">Alto</span>
         </div>
         <div class="action-bar">
             <label for="rf07-search" class="sr-only">Buscar usuario por nombre, RUT o email</label>
-            <input type="text" placeholder="Buscar usuario..." id="rf07-search" aria-label="Buscar usuario por nombre, RUT o email" style="width:300px" oninput="rf07FilterUsers()">
+            <input type="text" placeholder="Buscar usuario..." id="rf07-search" aria-label="Buscar usuario por nombre, RUT o email" class="search-input" oninput="rf07FilterUsers()">
             <button class="btn-primary" onclick="rf07ToggleCreate()" aria-expanded="false" id="rf07-create-toggle">+ Crear Usuario</button>
         </div>
         <div class="table-wrapper">
@@ -494,7 +589,7 @@
                 <tbody id="rf07-users-table"></tbody>
             </table>
         </div>
-        <div id="rf07-create-panel" class="hidden form-panel-wide" style="margin-top:2rem;border:2px solid #667eea;padding:2rem;border-radius:10px" role="region" aria-label="Formulario creación de usuario">
+        <div id="rf07-create-panel" class="hidden form-panel-wide create-panel" role="region" aria-label="Formulario creación de usuario">
             <h3>Crear Nuevo Usuario</h3>
             <div class="form-grid">
                 <div class="form-group"><label for="rf07-new-nombre">Nombre Completo *</label><input type="text" id="rf07-new-nombre" placeholder="Nombre y apellidos" aria-required="true"></div>
@@ -523,7 +618,9 @@
 <div id="view-rf08" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">📧</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
             <div><h2>Notificaciones Automáticas</h2><p>Alertas de trámites pendientes y vencimientos</p></div>
             <span class="tag medio">Medio</span>
         </div>
@@ -531,24 +628,24 @@
             <div class="notifications-list-panel">
                 <h3>Notificaciones Activas</h3>
                 <div class="notification-item notif-warning">
-                    <div class="notif-icon">⚠️</div>
+                    <div class="notif-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
                     <div class="notif-body"><strong>Plazo vehículo próximo a vencer</strong><p>Patente ABC-1234 vence en 5 días (plazo 180 días)</p><span class="notif-time">Hace 2 horas</span></div>
-                    <button class="notif-dismiss" onclick="dismissNotif(this)">×</button>
+                    <button class="notif-dismiss" onclick="dismissNotif(this)" aria-label="Descartar notificación">&times;</button>
                 </div>
                 <div class="notification-item notif-danger">
-                    <div class="notif-icon">🚨</div>
+                    <div class="notif-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
                     <div class="notif-body"><strong>Declaración SAG pendiente</strong><p>Pasajero RUT 9.876.543-2 no ha completado declaración</p><span class="notif-time">Hace 30 min</span></div>
-                    <button class="notif-dismiss" onclick="dismissNotif(this)">×</button>
+                    <button class="notif-dismiss" onclick="dismissNotif(this)" aria-label="Descartar notificación">&times;</button>
                 </div>
                 <div class="notification-item notif-info">
-                    <div class="notif-icon">ℹ️</div>
+                    <div class="notif-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
                     <div class="notif-body"><strong>Trámite de menor aprobado</strong><p>Folio MEN-2026-0892 procesado exitosamente</p><span class="notif-time">Hace 1 hora</span></div>
-                    <button class="notif-dismiss" onclick="dismissNotif(this)">×</button>
+                    <button class="notif-dismiss" onclick="dismissNotif(this)" aria-label="Descartar notificación">&times;</button>
                 </div>
                 <div class="notification-item notif-success">
-                    <div class="notif-icon">✅</div>
+                    <div class="notif-icon" aria-hidden="true"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                     <div class="notif-body"><strong>Sincronización con Argentina completada</strong><p>2.341 registros sincronizados correctamente</p><span class="notif-time">Hace 2 min</span></div>
-                    <button class="notif-dismiss" onclick="dismissNotif(this)">×</button>
+                    <button class="notif-dismiss" onclick="dismissNotif(this)" aria-label="Descartar notificación">&times;</button>
                 </div>
             </div>
             <div class="notifications-config-panel">
@@ -566,7 +663,7 @@
                     <div class="toggle-row"><span id="tgl-inc-lbl">Incidentes de seguridad</span><button role="switch" aria-checked="true" aria-labelledby="tgl-inc-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
                     <div class="toggle-row"><span id="tgl-act-lbl">Actualizaciones del sistema</span><button role="switch" aria-checked="false" aria-labelledby="tgl-act-lbl" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button></div>
                 </div>
-                <button class="btn-primary" style="margin-top:1rem" onclick="showToast('Configuración guardada','success')">Guardar Configuración</button>
+                <button class="btn-primary mt-sm" onclick="showToast('Configuración guardada','success')">Guardar Configuración</button>
             </div>
         </div>
     </div>
@@ -576,25 +673,27 @@
 <div id="view-rf09" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">🔍</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
             <div><h2>Validación de Patentes y Multas</h2><p>Consulta de encargos por robo y prohibiciones legales</p></div>
             <span class="tag alto">Alto</span>
         </div>
         <div class="search-panel-centered">
             <h3>Consultar Patente</h3>
-            <p style="color:#666;margin-bottom:1.5rem">Ingrese la patente del vehículo para consultar su estado en el Registro Civil, base de robados y multas pendientes.</p>
+            <p class="text-muted mb-md">Ingrese la patente del vehículo para consultar su estado en el Registro Civil, base de robados y multas pendientes.</p>
             <div class="search-big">
                 <label for="rf09-patente" class="sr-only">Número de patente del vehículo</label>
                 <input type="text" id="rf09-patente" placeholder="ABC-1234 o ABCD12" class="input-big" aria-label="Número de patente" oninput="this.value=this.value.toUpperCase()" onkeypress="if(event.key==='Enter')rf09Search()">
                 <button class="btn-primary btn-big" onclick="rf09Search()">Consultar</button>
             </div>
             <div id="rf09-loader" class="hidden loading-indicator" aria-live="polite"><div class="spinner" aria-hidden="true"></div><p>Consultando bases de datos...</p></div>
-            <div id="rf09-result" class="hidden" style="margin-top:2rem" aria-live="polite"></div>
-            <p style="margin-top:1rem;color:#888;font-size:0.85rem">
-                💡 Prueba con: <strong>ROB-1234</strong> (encargado robo) · <strong>MLT-5678</strong> (multas) · Cualquier otra (sin novedad)
+            <div id="rf09-result" class="hidden mt-lg" aria-live="polite"></div>
+            <p class="mt-sm text-faint text-sm">
+                Prueba con: <strong>ROB-1234</strong> (encargado robo) · <strong>MLT-5678</strong> (multas) · Cualquier otra (sin novedad)
             </p>
         </div>
-        <h3 style="margin:2rem 0 1rem">Consultas Recientes</h3>
+        <h3 class="section-heading">Consultas Recientes</h3>
         <div class="table-wrapper">
             <table class="data-table" aria-label="Historial de consultas de patentes">
                 <caption class="sr-only">Últimas patentes consultadas en esta sesión</caption>
@@ -613,14 +712,18 @@
 <div id="view-rf10" class="view hidden">
     <div class="view-container">
         <div class="view-header">
-            <div class="view-icon">💬</div>
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
             <div><h2>Asistente Virtual — Chatbot FAQ</h2><p>Módulo de ayuda con procesamiento de lenguaje natural</p></div>
             <span class="tag bajo">Bajo</span>
         </div>
         <div class="chatbot-layout">
             <div class="chatbot-container">
                 <div class="chat-header">
-                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-avatar" aria-hidden="true">
+                        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+                    </div>
                     <div><strong>Asistente Aduanas</strong><span class="chat-status"> ● En línea</span></div>
                 </div>
                 <div class="chat-messages" id="chatMessages">
@@ -632,22 +735,100 @@
                 <div class="chat-input-area">
                     <label for="chatInput" class="sr-only">Escribe tu pregunta al asistente</label>
                     <input type="text" id="chatInput" placeholder="Escribe tu pregunta aquí..." aria-label="Mensaje al asistente" onkeypress="if(event.key==='Enter')sendChatMessage()">
-                    <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Enviar mensaje">➤</button>
+                    <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Enviar mensaje">
+                        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
                 </div>
             </div>
             <div class="chatbot-topics">
                 <h3>Temas frecuentes</h3>
                 <div class="topic-chips">
-                    <button class="topic-chip" onclick="askChatTopic('menores')">👶 Viaje con menores</button>
-                    <button class="topic-chip" onclick="askChatTopic('vehiculos')">🚗 Ingreso de vehículo</button>
-                    <button class="topic-chip" onclick="askChatTopic('sag')">🥬 Declaración SAG</button>
-                    <button class="topic-chip" onclick="askChatTopic('documentos')">📄 Documentos requeridos</button>
-                    <button class="topic-chip" onclick="askChatTopic('plazo')">⏱️ Plazos de estadía</button>
-                    <button class="topic-chip" onclick="askChatTopic('horario')">🕐 Horarios de cruce</button>
-                    <button class="topic-chip" onclick="askChatTopic('multas')">💰 Consultar multas</button>
-                    <button class="topic-chip" onclick="askChatTopic('operador')">👨‍💼 Hablar con operador</button>
+                    <button class="topic-chip" onclick="askChatTopic('menores')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Viaje con menores</button>
+                    <button class="topic-chip" onclick="askChatTopic('vehiculos')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Ingreso de vehículo</button>
+                    <button class="topic-chip" onclick="askChatTopic('sag')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 22"/><path d="M7.67 22C7.22 17 9.17 12.7 13 10"/><path d="M3 22c2-4 6-8 14-8"/></svg> Declaración SAG</button>
+                    <button class="topic-chip" onclick="askChatTopic('documentos')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Documentos requeridos</button>
+                    <button class="topic-chip" onclick="askChatTopic('plazo')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Plazos de estadía</button>
+                    <button class="topic-chip" onclick="askChatTopic('horario')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Horarios de cruce</button>
+                    <button class="topic-chip" onclick="askChatTopic('multas')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Consultar multas</button>
+                    <button class="topic-chip" onclick="askChatTopic('operador')"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg> Hablar con operador</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- ─── ARCO+P: PRIVACIDAD (Fase 3) ─── -->
+<!--
+  BACKEND SECURITY REQUIREMENTS (no implementado en este prototipo estático):
+  · Autenticación:  JWT (RS256) + refresh tokens en cookie HttpOnly/Secure/SameSite=Strict
+  · Contraseñas:    argon2id (mínimo) o bcrypt (cost ≥ 12) — NUNCA en texto plano
+  · 2FA real:       TOTP (RFC 6238) con Speakeasy/Google Authenticator
+  · TLS/HTTPS:      Forzado en producción + HSTS con preload
+  · RBAC:           Verificar rol en cada endpoint server-side; no solo en frontend
+  · Rate limiting:  Evitar ataques de fuerza bruta + CSRF protection + CSP header
+  · RF04 internacional: art. 26 Ley N°21.719 — garantías adecuadas o decisión de adecuación
+  · DPO designado:  art. 52 Ley N°21.719 — dpo@aduanas.gob.cl
+  · DPIA:           Evaluación de Impacto en Privacidad obligatoria (art. 37 Ley N°21.719)
+  · Brechas:        Notificación a APDP en ≤ 72h (art. 40 Ley N°21.719)
+  · Retención:      Política documentada; supresión efectiva al ejercer derecho
+  · No almacenar datos sensibles en localStorage/sessionStorage (usar memoria de sesión)
+-->
+<div id="view-arco" class="view hidden">
+    <div class="view-container">
+        <div class="view-header">
+            <div class="view-icon" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div><h2>Privacidad y Derechos ARCO+P</h2><p>Gestión de derechos de titulares conforme a la Ley N°21.719 de Protección de Datos Personales</p></div>
+            <span class="tag critico">Crítico</span>
+        </div>
+        <div class="two-col">
+            <div class="form-panel-wide">
+                <h3>Sus derechos como titular de datos</h3>
+                <div class="arco-rights-grid">
+                    <div class="arco-right"><h4>Acceso</h4><p>Solicitar qué datos personales suyos son tratados y con qué finalidad (art. 7 Ley N°21.719)</p></div>
+                    <div class="arco-right"><h4>Rectificación</h4><p>Corregir datos inexactos o incompletos en los registros del sistema</p></div>
+                    <div class="arco-right"><h4>Cancelación / Supresión</h4><p>Solicitar la eliminación de sus datos cuando ya no sean necesarios para la finalidad declarada</p></div>
+                    <div class="arco-right"><h4>Oposición</h4><p>Oponerse al tratamiento de sus datos en determinadas circunstancias (art. 13 Ley N°21.719)</p></div>
+                    <div class="arco-right"><h4>Portabilidad</h4><p>Recibir sus datos en formato estructurado, de uso común y lectura mecánica (art. 14 Ley N°21.719)</p></div>
+                </div>
+                <div class="info-box mt-md" role="note">
+                    <strong>Responsable del tratamiento:</strong> Servicio Nacional de Aduanas — Complejo Los Libertadores<br>
+                    <strong>DPO (Delegado de Protección de Datos):</strong> dpo@aduanas.gob.cl<br>
+                    <strong>Base de licitud:</strong> Ejercicio de potestades públicas (art. 13 letra d) Ley N°21.719)<br>
+                    <strong>Vigencia Ley N°21.719:</strong> En vigor desde 01/12/2026<br>
+                    <strong>Autoridad de control:</strong> APDP (Agencia de Protección de Datos Personales)
+                </div>
+            </div>
+            <div class="form-panel">
+                <h3>Ejercer un Derecho ARCO+P</h3>
+                <div class="form-group"><label for="arco-tipo">Tipo de solicitud *</label>
+                    <select id="arco-tipo" aria-required="true">
+                        <option value="">Seleccione...</option>
+                        <option value="acceso">Acceso — ¿Qué datos tienen de mí?</option>
+                        <option value="rectificacion">Rectificación — Corregir mis datos</option>
+                        <option value="cancelacion">Cancelación / Supresión</option>
+                        <option value="oposicion">Oposición al tratamiento</option>
+                        <option value="portabilidad">Portabilidad de datos</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="arco-rut">RUT del titular *</label><input type="text" id="arco-rut" placeholder="12.345.678-K" aria-required="true"></div>
+                <div class="form-group"><label for="arco-email">Email de contacto *</label><input type="email" id="arco-email" placeholder="titular@correo.cl" aria-required="true"></div>
+                <div class="form-group"><label for="arco-detalle">Detalle de la solicitud</label><textarea id="arco-detalle" rows="4" placeholder="Describa su solicitud con el mayor detalle posible..."></textarea></div>
+                <div class="form-actions"><button class="btn-primary" onclick="submitArcoRequest()">Enviar Solicitud</button></div>
+                <div id="arco-result" class="hidden mt-sm" aria-live="polite"></div>
+            </div>
+        </div>
+        <h3 class="section-heading">Bitácora de Auditoría — Sesión Actual</h3>
+        <p class="text-muted text-sm mb-md">Registro de acciones realizadas en esta sesión. En producción se registraría en un sistema inmutable con timestamp firmado y no repudiable (art. 33 Ley N°21.719).</p>
+        <div class="table-wrapper">
+            <table class="data-table" aria-label="Registro de auditoría de la sesión">
+                <caption class="sr-only">Acciones realizadas durante la sesión actual</caption>
+                <thead><tr><th scope="col">Hora</th><th scope="col">Acción</th><th scope="col">Detalle</th><th scope="col">Usuario</th></tr></thead>
+                <tbody id="arco-audit-log">
+                    <tr><td colspan="4" class="table-empty">No hay entradas de auditoría aún. Inicie sesión y realice operaciones para ver el registro.</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -659,7 +840,9 @@
     <div class="modal-content modal-login">
         <button class="close" onclick="toggleLoginModal()" aria-label="Cerrar modal de ingreso">&times;</button>
         <div class="login-header">
-            <div class="login-logo" aria-hidden="true">🛂</div>
+            <div class="login-logo" aria-hidden="true">
+                <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </div>
             <h2 id="login-modal-title">Ingreso al Sistema</h2>
             <p>Aduanas System — Los Libertadores</p>
         </div>
@@ -679,9 +862,9 @@
             <div class="form-group">
                 <label for="codigo2fa">Código 2FA (6 dígitos)</label>
                 <input type="text" id="codigo2fa" placeholder="123456" maxlength="6" autocomplete="one-time-code" inputmode="numeric" pattern="\d{6}">
-                <small style="color:#888">Prototipo: ingrese cualquier valor</small>
+                <small class="text-faint">Prototipo: ingrese cualquier valor</small>
             </div>
-            <div class="info-box" style="margin:.75rem 0;font-size:.82rem" role="note">
+            <div class="info-box info-box-sm mt-sm mb-sm" role="note">
                 <strong>Aviso de privacidad (Ley N°21.719):</strong> Los datos ingresados serán tratados exclusivamente para autenticar el acceso a este sistema institucional. Base de licitud: ejercicio de potestades públicas. Responsable: Servicio Nacional de Aduanas / Complejo Los Libertadores.
             </div>
             <button type="submit" class="submit-btn">Ingresar al Sistema</button>
@@ -695,7 +878,10 @@
 <!-- FOOTER -->
 <footer class="footer">
     <div class="footer-content">
-        <div class="footer-brand">🛂 Aduanas System v2.0</div>
+        <div class="footer-brand">
+            <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            Aduanas System v2.0
+        </div>
         <div class="footer-info"><p>Modernización de Fronteras — Complejo Los Libertadores</p><p>DuocUC · Ingeniería de Software · 2026</p></div>
         <div class="footer-links">
             <a href="#" onclick="navigateTo('landing');return false">Inicio</a>
