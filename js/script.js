@@ -409,6 +409,8 @@ function rf02Validate() {
     const patente = document.getElementById('rf02-patente').value.trim().toUpperCase();
     const propietario = document.getElementById('rf02-propietario').value.trim();
     if (!patente || !propietario) { showToast('Ingrese patente y RUT del propietario', 'warning'); return; }
+    const diasPDI = parseInt(document.getElementById('rf02-dias-pdi').value, 10);
+    if (!diasPDI || diasPDI < 1) { showToast('Ingrese los días autorizados por PDI al conductor', 'warning'); return; }
 
     const tipo = document.getElementById('rf02-tipo-op').value;
     const marca = document.getElementById('rf02-marca').value || 'No especificado';
@@ -438,7 +440,7 @@ function rf02Validate() {
             <p style="margin-top:.75rem">El propietario debe regularizar multas antes de autorizar ${tipo === 'SALIDA' ? 'la salida' : 'el ingreso'}.</p>
         </div>`;
     } else {
-        const plazo = tipo === 'ENTRADA' ? 180 : 90;
+        const plazo = diasPDI;
         const vencimiento = new Date(); vencimiento.setDate(vencimiento.getDate() + plazo);
         const folio = 'VEH-2026-' + Math.floor(Math.random()*9000+1000);
         addAuditEntry('VEHICULO_AUTORIZADO', 'Patente: ' + escapeHtml(patente) + ' | Op: ' + tipo + ' | Folio: ' + folio);
@@ -449,7 +451,7 @@ function rf02Validate() {
                 <p><strong>Patente:</strong> ${safePat}</p>
                 <p><strong>Vehículo:</strong> ${safeMarca} ${safeModelo}</p>
                 <p><strong>Operación:</strong> ${tipo}</p>
-                <p><strong>Plazo permitido:</strong> ${plazo} días</p>
+                <p><strong>Plazo TITV (= autorización migratoria PDI):</strong> ${plazo} días</p>
                 <p><strong>Vence:</strong> ${vencimiento.toLocaleDateString('es-CL')}</p>
                 <p><strong>Folio:</strong> ${folio}</p>
                 <p><strong>Argentina:</strong> Validado | <strong>Registro Civil:</strong> Sin novedad</p>
@@ -823,7 +825,7 @@ const chatResponses = [
     {keys:['documento','documentos','requiero','necesito','qué traer','requisito'],
      res:'Los documentos básicos para cruzar Los Libertadores son: (1) Cédula de identidad vigente o pasaporte, (2) Para vehículos: licencia de conducir, seguro obligatorio y formulario SAG, (3) Para menores: autorización notarial según caso. ¿Necesita más detalles?'},
     {keys:['plazo','días','tiempo','cuánto','duración'],
-     res:'Los plazos de estadía son: Turistas en Chile: <strong>90 días prorrogables</strong>. Vehículos extranjeros en Chile: <strong>90 días</strong>. Vehículos chilenos en Argentina con acuerdo: <strong>180 días</strong>. Para consultar el plazo de un vehículo específico use el módulo <strong>Admisión de Vehículos</strong>.'},
+     res:'El plazo de permanencia lo determina PDI según el motivo de viaje: los turistas suelen recibir <strong>hasta 90 días prorrogables</strong>, pero la resolución definitiva es siempre de PDI en la misma entrada. Para vehículos bajo <strong>Tránsito Internacional de Vehículos (TITV)</strong>, no existe un plazo fijo: el vehículo hereda la autorización migratoria que PDI otorgue al conductor, por lo que el plazo varía en cada caso. Para registrar una admisión use el módulo <strong>Admisión de Vehículos</strong>.'},
     {keys:['horario','hora','abierto','cierra','disponible','cadena','nieve','invierno'],
      res:'El Complejo Los Libertadores opera <strong>24 horas durante la temporada estival (aproximadamente diciembre a abril)</strong>. En temporada invernal opera aproximadamente de <strong>08:00 a 20:00 horas</strong>, sujeto a cierres por clima adverso, nevazones o condiciones de ruta. Antes de viajar en invierno, consulte el estado del paso en el sitio oficial del MOP o Carabineros. <strong>Importante:</strong> en temporada de nieve es obligatorio portar cadenas para nieve o tracción en las cuatro ruedas.'},
     {keys:['multa','multas','deuda','prohibición','cobro'],
