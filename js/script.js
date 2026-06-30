@@ -178,15 +178,38 @@ function scrollAfter(id) {
 // ══════════════════════════════════════════
 function toggleLoginModal() {
     const m = document.getElementById('loginModal');
-    m.style.display = m.style.display === 'block' ? 'none' : 'block';
+    if (m.style.display === 'block') {
+        m.style.display = 'none';
+        document.getElementById('loginStep1').style.display = 'block';
+        document.getElementById('loginStep2').style.display = 'none';
+        document.getElementById('codigo2fa').value = '';
+    } else {
+        m.style.display = 'block';
+    }
 }
 
 function handleLogin(event) {
     event.preventDefault();
+    const step1 = document.getElementById('loginStep1');
+    const step2 = document.getElementById('loginStep2');
+
+    if (step1.style.display !== 'none') {
+        // Paso 1: validar credenciales
+        const rut  = document.getElementById('rut').value.trim();
+        const pass = document.getElementById('password').value;
+        const role = document.getElementById('role').value;
+        if (!rut || !pass || !role) { showToast('Complete todos los campos', 'danger'); return; }
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+        document.getElementById('codigo2fa').focus();
+        return;
+    }
+
+    // Paso 2: verificar 2FA y completar login
     const rut  = document.getElementById('rut').value.trim();
-    const pass = document.getElementById('password').value;
     const role = document.getElementById('role').value;
-    if (!rut || !pass || !role) { showToast('Complete todos los campos', 'danger'); return; }
+    const code = document.getElementById('codigo2fa').value.trim();
+    if (!code) { showToast('Ingrese el código 2FA', 'danger'); return; }
 
     // BACKEND NOTE: En producción verificar credenciales server-side con bcrypt/argon2id.
     // JWT con RS256, refresh tokens en cookie HttpOnly/Secure/SameSite=Strict.
@@ -201,8 +224,16 @@ function handleLogin(event) {
     document.getElementById('userInfoBar').classList.remove('hidden');
     document.getElementById('userBadgeText').textContent = roleLabels[role] || role;
     document.querySelector('form').reset();
+    step1.style.display = 'block';
+    step2.style.display = 'none';
     showToast('Sesión iniciada como ' + roleLabels[role], 'success');
     navigateTo('dashboard');
+}
+
+function volverStep1() {
+    document.getElementById('loginStep1').style.display = 'block';
+    document.getElementById('loginStep2').style.display = 'none';
+    document.getElementById('codigo2fa').value = '';
 }
 
 function handleLogout() {
