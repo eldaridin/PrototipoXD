@@ -8,6 +8,10 @@
 
 Clases de Usuario y Reporte con enumeraciones RolEnum, FormatoEnum y TipoReporteEnum.
 
+> **CORRECCIÓN v1.1:**
+> 1. Se agrega la relación **Usuario "1" --> "*" Reporte** (el texto del DAS la menciona — "Se relaciona 1:N con Reporte" — pero no estaba dibujada en el diagrama original).
+> 2. Se corrigen los valores de `RolEnum` para que coincidan con el texto del DAS: `OFICIAL_SAG`, `OFICIAL_PDI`, `ADMIN_SNA` (antes decía `SAG`, `PDI`, `ADMINISTRADOR`).
+
 ---
 
 ## Diagrama
@@ -30,9 +34,9 @@ classDiagram
         <<enumeration>>
         TURISTA
         FUNCIONARIO_ADUANA
-        ADMINISTRADOR
-        PDI
-        SAG
+        OFICIAL_SAG
+        OFICIAL_PDI
+        ADMIN_SNA
     }
     class FormatoEnum {
         <<enumeration>>
@@ -47,6 +51,7 @@ classDiagram
         INSPECCIONES
     }
 
+    Usuario "1" --> "*" Reporte : genera
     Usuario --> RolEnum : asignado
     Reporte --> FormatoEnum : exporta_en
     Reporte --> TipoReporteEnum : clasificado_como
@@ -67,4 +72,4 @@ classDiagram
 
 ---
 
-*DAS Aduanas System v1.0 — Dario Rojas / Nicolas Herrera — DuocUC*
+*DAS Aduanas System v1.1 — Dario Rojas / Nicolas Herrera — DuocUC*
