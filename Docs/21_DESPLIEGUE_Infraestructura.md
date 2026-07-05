@@ -1,4 +1,4 @@
-# Diagrama de Despliegue — Infraestructura Kubernetes
+# Diagrama de Despliegue — Aduanas System
 
 > **Vista DAS:** 4.5 Vista Fisica | **Proyecto:** Aduanas System
 
@@ -6,7 +6,9 @@
 
 ## Descripcion
 
-Infraestructura en cluster Kubernetes con pods, PostgreSQL y conexiones a sistemas externos.
+Infraestructura de despliegue con App Servers y DB Servers independientes por microservicio (Database-per-Service), sin contenedores/orquestador.
+
+> **CORRECCIÓN v1.1:** el diagrama anterior describía un **clúster Kubernetes con pods Docker y Nginx Ingress Controller**, y solo mostraba 3 de los 6 microservicios. Esto no coincide con la Vista Física del DAS, que describe **App Servers independientes (MS1 al MS6)** cada uno con su propia base de datos PostgreSQL. Se corrige para incluir los 6 microservicios y se elimina la referencia a Kubernetes/Docker/Nginx.
 
 ---
 
@@ -14,43 +16,53 @@ Infraestructura en cluster Kubernetes con pods, PostgreSQL y conexiones a sistem
 
 ```mermaid
 flowchart TD
-    %% Nivel Cliente
-    subgraph Capa_Dispositivos ["Infraestructura del Cliente / Punto de Control"]
+    Internet["Internet<br/>Usuarios (turistas / funcionarios)"]
+    CDN["«device» CDN Server<br/>Frontend PWA"]
+    GW["«device» API Gateway Server<br/>Spring Cloud Gateway"]
+    SEC["«device» Security Server<br/>JWT / RBAC"]
+
+    subgraph AppServers ["App Servers (uno por microservicio)"]
         direction LR
-        POS[Dispositivo POS / Lector Biométrico]
-        Browser[Navegador Web Funcionario]
+        AS_Tur["«device» App Server<br/>MS-Turista"]
+        AS_Veh["«device» App Server<br/>MS-Vehiculo"]
+        AS_Men["«device» App Server<br/>MS-Menores"]
+        AS_SAG["«device» App Server<br/>MS-SAG"]
+        AS_PDI["«device» App Server<br/>MS-PDI"]
+        AS_Rep["«device» App Server<br/>MS-Reportes"]
     end
 
-    %% Red Complejo Fronterizo
-    subgraph Cluster_K8s ["Nodo Servidor Central (Kubernetes Cluster)"]
-        subgraph Ingress_Controller ["Capa de Enrutamiento (Ingress)"]
-            Ingress[Nginx Ingress Controller]
-        end
-
-        subgraph Pods_Microservicios ["Pods de Aplicación (Docker Containers)"]
-            direction LR
-            Pod_Tur[Pod: MS-Turista]
-            Pod_Veh[Pod: MS-Vehiculo]
-            Pod_SAG[Pod: MS-SAG]
-        end
-
-        subgraph Pods_Data ["Capa de Almacenamiento Distribuido"]
-            DB_Replica[("PostgreSQL Cluster (Primary/Replica)")]
-        end
+    subgraph DBServers ["DB Servers (PostgreSQL, uno por microservicio)"]
+        direction LR
+        DB_Tur[("PostgreSQL<br/>Turista")]
+        DB_Veh[("PostgreSQL<br/>Vehiculo")]
+        DB_Men[("PostgreSQL<br/>Menores")]
+        DB_SAG[("PostgreSQL<br/>SAG")]
+        DB_PDI[("PostgreSQL<br/>PDI")]
+        DB_Rep[("PostgreSQL<br/>Reportes")]
     end
 
-    %% Entidades Externas
-    subgraph Red_Gubernamental ["Servidores Externos Estatales"]
-        Aduana_Arg[Servidor Aduana Argentina]
-        Reg_Civil[API Red Mideplan / Reg. Civil]
+    subgraph Externos ["Sistemas Externos"]
+        direction TB
+        Ext_Arg["«device» Aduana Argentina<br/>REST / VPN"]
+        Ext_PDI["«device» PDI / Migraciones<br/>REST / HTTPS"]
+        Ext_SAG["«device» SAG Externo<br/>REST / HTTPS"]
+        Ext_RC["«device» Registro Civil<br/>REST / HTTPS"]
     end
 
-    %% Enlaces
-    POS & Browser -->|HTTPS / TLS 1.3| Ingress
-    Ingress --> Pod_Tur & Pod_Veh & Pod_SAG
-    Pod_Tur & Pod_Veh & Pod_SAG -->|TCP / Puerto 5432| DB_Replica
-    Pod_Veh -->|REST API / VPN| Aduana_Arg
-    Pod_Tur -->|REST API / Tramo Seguro| Reg_Civil
+    Internet -->|HTTPS| CDN
+    CDN -->|HTTPS| GW
+    GW -->|valida JWT| SEC
+    GW --> AS_Tur & AS_Veh & AS_Men & AS_SAG & AS_PDI & AS_Rep
+    AS_Tur -->|JDBC/SSL| DB_Tur
+    AS_Veh -->|JDBC/SSL| DB_Veh
+    AS_Men -->|JDBC/SSL| DB_Men
+    AS_SAG -->|JDBC/SSL| DB_SAG
+    AS_PDI -->|JDBC/SSL| DB_PDI
+    AS_Rep -->|JDBC/SSL| DB_Rep
+    AS_Veh -->|VPN| Ext_Arg
+    AS_PDI --> Ext_PDI
+    AS_SAG --> Ext_SAG
+    AS_Tur --> Ext_RC
 ```
 
 ---
@@ -68,4 +80,4 @@ flowchart TD
 
 ---
 
-*DAS Aduanas System v1.0 — Dario Rojas / Nicolas Herrera — DuocUC*
+*DAS Aduanas System v1.1 — Dario Rojas / Nicolas Herrera — DuocUC*
