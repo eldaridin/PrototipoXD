@@ -8,6 +8,8 @@
 
 Clases del microservicio Menores: MenorEdad, Permiso, Antecedente, HistorialViajeMenor y DocumentoMenor.
 
+> **CORRECCIÓN v1.1:** la relación MenorEdad–Permiso pasa de 1:N a **1:1**, ya que un menor tiene un único permiso notarial vigente a la vez (así lo describe el DAS, sección 4.2.3).
+
 ---
 
 ## Diagrama
@@ -45,7 +47,7 @@ classDiagram
         +getId()
     }
 
-    MenorEdad "1" --> "*" Permiso : requiere
+    MenorEdad "1" --> "1" Permiso : requiere
     MenorEdad "1" --> "*" Antecedente : consulta
     MenorEdad "1" --> "*" HistorialViajeMenor : almacena
     MenorEdad "1" --> "*" DocumentoMenor : identifica
@@ -66,4 +68,4 @@ classDiagram
 
 ---
 
-*DAS Aduanas System v1.0 — Dario Rojas / Nicolas Herrera — DuocUC*
+*DAS Aduanas System v1.1 — Dario Rojas / Nicolas Herrera — DuocUC*
