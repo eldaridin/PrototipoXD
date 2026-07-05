@@ -8,6 +8,8 @@
 
 Clases del microservicio SAG: InspeccionSAG, DeclaracionJurada, Medicamento, Animal, Producto y ResultadoEnum.
 
+> **CORRECCIÓN v1.1:** se agrega el valor **REVISION** al `ResultadoEnum` (el DAS lo menciona en el texto — APROBADO, RECHAZADO, PENDIENTE, REVISIÓN — pero el diagrama original solo tenía 3 valores).
+
 ---
 
 ## Diagrama
@@ -49,6 +51,7 @@ classDiagram
         APROBADO
         RECHAZADO
         PENDIENTE
+        REVISION
     }
 
     InspeccionSAG "1" --> "1" DeclaracionJurada : genera
@@ -73,4 +76,4 @@ classDiagram
 
 ---
 
-*DAS Aduanas System v1.0 — Dario Rojas / Nicolas Herrera — DuocUC*
+*DAS Aduanas System v1.1 — Dario Rojas / Nicolas Herrera — DuocUC*
