@@ -8,6 +8,10 @@
 
 Clases del microservicio PDI: ControlPDI, ControlMigratorio, MercanciaIlicita, Contrabando y Trafico.
 
+> **CORRECCIÓN v1.1:**
+> 1. Se corrige el typo de la clase `Mercanciallicita` → **`MercanciaIlicita`**.
+> 2. `Contrabando` y `Trafico` dejan de ser subclases (herencia) de `MercanciaIlicita` y pasan a ser **3 asociaciones 1:N independientes desde ControlPDI**, tal como lo describe el texto del DAS ("Tiene relación 1:1 con ControlMigratorio y relaciones 1:N con Contrabando, Trafico y MercanciaIlicita").
+
 ---
 
 ## Diagrama
@@ -26,7 +30,7 @@ classDiagram
         +verificar()
         +generarAlerta()
     }
-    class Mercanciallicita {
+    class MercanciaIlicita {
         +Long id_incidente
         +Long id_control
         +registrar()
@@ -35,20 +39,22 @@ classDiagram
     class Contrabando {
         +Long id_contrabando
         +Long id_control
+        +Double montoEstimado
         +registrar()
         +getId()
     }
     class Trafico {
         +Long id_trafico
         +Long id_control
+        +String tipoSustancia
         +registrar()
         +getId()
     }
 
     ControlPDI "1" --> "1" ControlMigratorio : ejecuta
-    ControlPDI "1" --> "*" Mercanciallicita : detecta
-    Mercanciallicita <|-- Contrabando : es_un
-    Mercanciallicita <|-- Trafico : es_un
+    ControlPDI "1" --> "*" MercanciaIlicita : detecta
+    ControlPDI "1" --> "*" Contrabando : registra
+    ControlPDI "1" --> "*" Trafico : registra
 ```
 
 ---
@@ -66,4 +72,4 @@ classDiagram
 
 ---
 
-*DAS Aduanas System v1.0 — Dario Rojas / Nicolas Herrera — DuocUC*
+*DAS Aduanas System v1.1 — Dario Rojas / Nicolas Herrera — DuocUC*
